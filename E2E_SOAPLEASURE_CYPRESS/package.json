@@ -40,6 +40,6 @@
     "cypress-mochawesome-reporter": "^3.8.2",
     "esbuild": "^0.25.4",
     "prettier": "^3.5.3"
-  }
-  
+  },
+  "repository": "https://github.com/Albarokah9/Project_Portofolio_e2e_cypress_soapleasure.git"
 }
