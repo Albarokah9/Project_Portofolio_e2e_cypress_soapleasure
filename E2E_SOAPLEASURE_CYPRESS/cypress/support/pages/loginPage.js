@@ -8,8 +8,10 @@ const SELECTORS = {
   invalidFeedback: '.invalid-feedback',
 };
 class LoginPage {
-  visitHomePage() {
+  visitHome() {
     cy.visit('/');
+    cy.get(SELECTORS.loginLink).click();
+    cy.url().should('include', '/account/login');
   }
 
   // Hanya akan mengetik email jika nilainya tidak kosong
@@ -32,11 +34,11 @@ class LoginPage {
     return this;
   }
 
-  navigateToLoginPage() {
-    this.visitHomePage();
-    cy.get(SELECTORS.loginLink).click(); // Gunakan selector dari data
-    cy.url().should('include', '/account/login');
-  }
+  // navigateToLoginPage() {
+  //   cy.visit('/');
+  //   cy.get(SELECTORS.loginLink).click(); // Gunakan selector dari data
+  //   cy.url().should('include', '/account/login');
+  // }
 
   pressEnterOnPassword(password) {
     cy.get(SELECTORS.passwordInput).type(`${password}{enter}`);

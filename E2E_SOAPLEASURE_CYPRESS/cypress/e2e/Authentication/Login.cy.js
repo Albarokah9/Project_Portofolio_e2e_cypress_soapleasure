@@ -6,7 +6,7 @@ describe('Login Test Suite', () => {
     // Muat data fixture sebelum setiap tes dan pastikan 'this' dapat diakses
     cy.fixture('loginData.json').as('userData');
     // Navigasi ke halaman login
-    LoginPage.navigateToLoginPage();
+    LoginPage.visitHome();
   });
 
   it('Login dengan kredensial valid', function () {
