@@ -3,14 +3,11 @@ import LoginPage from '../../support/pages/loginPage';
 
 describe('Login Test Suite', () => {
   beforeEach(function () {
-    // Muat data fixture sebelum setiap tes dan pastikan 'this' dapat diakses
     cy.fixture('loginData.json').as('userData');
-    // Navigasi ke halaman login
     LoginPage.visitHome();
   });
 
   it('Login dengan kredensial valid', function () {
-    // Mengakses 'userData' dari 'this'
     const { email, password } = this.userData.validUser;
 
     LoginPage.typeEmail(email)

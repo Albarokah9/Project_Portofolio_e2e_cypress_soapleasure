@@ -3,9 +3,7 @@ import RegisterPage from '../../support/pages/registerPage';
 
 describe('Register Test Suite', () => {
   beforeEach(function () {
-    // Mengambil fixture data sekali di beforeEach untuk digunakan pada semua test
     cy.fixture('registerData.json').as('userData');
-    // Navigasi ke halaman register
     RegisterPage.visitRegisterPage();
   });
 

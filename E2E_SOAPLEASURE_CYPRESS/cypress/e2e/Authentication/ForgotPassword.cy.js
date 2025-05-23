@@ -21,8 +21,7 @@ describe('Forgot Password Test Suite', function () {
   it('menggunakan email yang belum terdaftar', function () {
     const unregisteredEmail = this.userData.unregisteredEmail;
     
-    forgotPasswordPage.visitHome()
-    .clickLoginLink()
+    forgotPasswordPage.clickLoginLink()
     .clickForgotPasswordLink()
     .verifyInstructionText()
     .typeEmail(unregisteredEmail)
@@ -33,8 +32,7 @@ describe('Forgot Password Test Suite', function () {
   it('menggunakan format email yang salah', function () {
     const invalidEmail = this.userData.invalidEmail;
     
-    forgotPasswordPage.visitHome()
-    .clickLoginLink()
+    forgotPasswordPage.clickLoginLink()
     .clickForgotPasswordLink()
     .verifyInstructionText()
     .typeEmail(invalidEmail)
@@ -43,8 +41,7 @@ describe('Forgot Password Test Suite', function () {
   });
 
   it('tanpa mengisi field email', function () {
-    forgotPasswordPage.visitHome()
-    .clickLoginLink()
+    forgotPasswordPage.clickLoginLink()
     .clickForgotPasswordLink()
     .verifyInstructionText()
     .clickSubmitButton()

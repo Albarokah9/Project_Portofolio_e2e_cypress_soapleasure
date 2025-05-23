@@ -6,13 +6,11 @@ describe('Logout Test', () => {
     cy.fixture('loginData.json').then(({ validUser }) => {
       const { email, password } = validUser;
 
-      // Melakukan login
       LogoutPage.visitHomePage();
       LogoutPage.login(email, password);
       LogoutPage.assertUserIsLoggedIn();
       LogoutPage.logout();
 
-      // Verifikasi berhasil logout
       cy.url().should('eq', 'https://soapleasure.com/');
     });
   });
