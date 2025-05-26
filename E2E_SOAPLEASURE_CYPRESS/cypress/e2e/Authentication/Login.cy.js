@@ -7,7 +7,7 @@ describe('Login Test Suite', () => {
     LoginPage.visitHome();
   });
 
-  it('Login dengan kredensial valid', function () {
+  it('TC_LOGIN_01 - Login dengan kredensial benar', function () {
     const { email, password } = this.userData.validUser;
 
     LoginPage.typeEmail(email)
@@ -16,7 +16,7 @@ describe('Login Test Suite', () => {
     .assertUserIsLoggedIn();
   });
 
-  it('Login dengan menekan tombol enter', function () {
+  it('TC_LOGIN_02 - Login dengan menekan tombol Enter di di keyboard setelah menginput email dan password ', function () {
     const { email, password } = this.userData.validUser;
 
     LoginPage.typeEmail(email)
@@ -24,7 +24,7 @@ describe('Login Test Suite', () => {
     .assertUserIsLoggedIn();
   });
 
-  it('Login dengan email valid tapi password salah', function () {
+  it('TC_LOGIN_03 - Login dengan password salah', function () {
     const { email, password } = this.userData.invalidPassword;
 
     LoginPage.typeEmail(email)
@@ -33,7 +33,7 @@ describe('Login Test Suite', () => {
       .assertInvalidCredentialsMessage();
   });
 
-  it('Login dengan email salah tapi password valid', function () {
+  it('TC_LOGIN_04 - Login menggunkan email yang salah', function () {
     const { email, password } = this.userData.invalidEmail;
 
     LoginPage.typeEmail(email)
@@ -42,7 +42,7 @@ describe('Login Test Suite', () => {
       .assertInvalidCredentialsMessage();
   });
 
-  it('Login dengan email & password yang salah', function () {
+  it('TC_LOGIN_05 - Login menggunakan email & password yang salah', function () {
     const { email, password } = this.userData.invalidEmailAndPassword;
 
     LoginPage.typeEmail(email)
@@ -51,7 +51,7 @@ describe('Login Test Suite', () => {
       .assertInvalidCredentialsMessage();
   });
 
-  it('Login dengan format email tidak valid', function () {
+  it('TC_LOGIN_06 - Login Mengunkan format email tidal valid', function () {
     const { email, password } = this.userData.incorrectEmailFormat;
 
     LoginPage.typeEmail(email)
@@ -60,15 +60,15 @@ describe('Login Test Suite', () => {
       .asserInvalidEmailFormatMessage();
   });
 
-  it('Login dengan kolom email kosong', function () {
-    const { password } = this.userData.emptyPassword;
+  it('TC_LOGIN_07 - Login tanpa mengisi kolom email', function () {
+    const { password } = this.userData.emptyEmail;
 
     LoginPage.typePassword(password)
     .clickLogin()
     .assertRequiredEmailMessage();
   });
 
-  it('Login dengan kolom password kosong', function () {
+  it('TC_LOGIN_08 - Login tanpa mengisi kolom password', function () {
     const { email } = this.userData.emptyPassword;
 
     LoginPage.typeEmail(email)
@@ -76,7 +76,7 @@ describe('Login Test Suite', () => {
     .assertRequiredPasswordMessage();
   });
 
-  it('Login tanpa mengisi kedua kolom', function () {
+  it('TC_LOGIN_09 - Login tana mengisi field email & password', function () {
     const { email, password } = this.userData.emptyFields;
 
     LoginPage.typeEmail(email)
@@ -85,14 +85,14 @@ describe('Login Test Suite', () => {
       .assertBothFieldsRequiredMessage();
   });
 
-  it('Password harus termasking', function () {
+  it('TC_LOGIN_10 - Memastikan karakter password dimasukkan sebagai titik/bintang', function () {
     const { password } = this.userData.validUser;
 
     LoginPage.typePassword(password)
     .assertPasswordMasked();
   });
 
-  it('Login dengan akun belum terverifikasi', function () {
+  it('TC_LOGIN_11 - Login meski belum verifikasi email', function () {
     const { unverifiedAccount } = this.userData;
     LoginPage.typeEmail(unverifiedAccount.email)
       .typePassword(unverifiedAccount.password)

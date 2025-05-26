@@ -7,7 +7,7 @@ describe('Register Test Suite', () => {
     RegisterPage.visitRegisterPage();
   });
 
-  it('Register dengan data lengkap & valid', function () {
+  it('TC_REG_01 - Berhasil membuat akun baru', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.validUser;
 
@@ -21,7 +21,7 @@ describe('Register Test Suite', () => {
     // RegisterPage.assertRegistrationSuccessMessage(email);
   });
 
-  it('Register dengan password huruf & angka', function () {
+  it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & ankga', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithAlphanumericPassword;
 
@@ -35,7 +35,7 @@ describe('Register Test Suite', () => {
     // RegisterPage.assertRegistrationSuccessMessage(email);
   });
 
-  it('Register dengan konfirmasi password cocok', function () {
+  it('TC_REG_03 - Register dengan konfirmasi password sama dengan password', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithMatchingPasswords;
 
@@ -49,7 +49,7 @@ describe('Register Test Suite', () => {
     // RegisterPage.assertRegistrationSuccessMessage(email);
   });
 
-  it('Register dengan email kosong', function () {
+  it('TC_REG_04 - Verifikasi validasi error saat field email dikosongkan pada form registrasi', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithEmptyEmail;
 
@@ -63,7 +63,7 @@ describe('Register Test Suite', () => {
     RegisterPage.assertEmailErrorMessage();
   });
 
-  it('Register dengan password kurang dari 8 karakter', function () {
+  it('TC_REG_05 - Verifikasi pesan error validasi ketika password yang dimasukkan kurang dari 8 karakter', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithShortPassword;
 
@@ -77,7 +77,7 @@ describe('Register Test Suite', () => {
     RegisterPage.assertShortPasswordErrorMessage();
   });
 
-  it('Register dengan konfirmasi password kosong', function () {
+  it('TC_REG_06 - Verifikasi pesan error validasi ketika field konfirmasi password dikosongkan pada form registrasi', function () {
     const { firstName, lastName, email, phone, password } =
       this.userData.userWithEmptyConfirmPassword;
 
@@ -91,7 +91,7 @@ describe('Register Test Suite', () => {
     // RegisterPage.assertRequiredConfirmPasswordMessage();
   });
 
-  it('Register dengan format email salah', function () {
+  it('TC_REG_07 - Verifikasi pesan error validasi ketika format email yang dimasukkan salah pada form registrasi', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithInvalidEmailFormat;
 
@@ -105,7 +105,7 @@ describe('Register Test Suite', () => {
     RegisterPage.assertInvalidEmailFormatErrorMessage();
   });
 
-  it('Register dengan nomor HP tidak valid', function () {
+  it('TC_REG_08 -Verifikasi pesan error validasi ketika format nomor HP yang dimasukkan salah (misalnya, mengandung huruf atau panjang tidak sesuai)', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithInvalidPhoneNumber;
 
@@ -119,7 +119,7 @@ describe('Register Test Suite', () => {
     RegisterPage.assertPhoneErrorMessage();
   });
 
-  it('Register dengan password & konfirmasi tidak cocok', function () {
+  it('TC_REG_09 - Verifikasi pesan error validasi ketika nilai pada field konfirmasi password tidak sama dengan nilai pada field password', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithMismatchedPasswords;
 
@@ -133,7 +133,7 @@ describe('Register Test Suite', () => {
     RegisterPage.assertRequiredPasswordMismatchMessage();
   });
 
-  it('Register tanpa mengisi field apa pun', () => {
+  it('TC_REG_10 - Verifikasi pesan error validasi ketika mencoba registrasi dengan semua field input dibiarkan kosong', () => {
     RegisterPage.clickRegisterButton();
     RegisterPage.assertRequiredFieldErrorMessage();
   });

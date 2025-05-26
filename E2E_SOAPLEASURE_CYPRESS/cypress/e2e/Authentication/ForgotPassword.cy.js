@@ -7,7 +7,7 @@ describe('Forgot Password Test Suite', function () {
     forgotPasswordPage.visitHome()
   });
 
-  it('menggunakan email yang sudah terdaftar', function () {
+  it('TC_FORGOTPWD_01 - Verifikasi fungsionalitas "Forgot Password" berhasil ketika menggunakan alamat email yang valid dan sudah terdaftar di sistem', function () {
     const registeredEmail = this.userData.registeredEmail;
 
     forgotPasswordPage.clickLoginLink()
@@ -18,7 +18,7 @@ describe('Forgot Password Test Suite', function () {
     .verifySuccessMessage();
   });
 
-  it('menggunakan email yang belum terdaftar', function () {
+  it('TC_FORGOTPWD_02 - Verifikasi respons sistem ketika pengguna mencoba mereset password menggunakan alamat email yang tidak terdaftar', function () {
     const unregisteredEmail = this.userData.unregisteredEmail;
     
     forgotPasswordPage.clickLoginLink()
@@ -29,7 +29,7 @@ describe('Forgot Password Test Suite', function () {
     .verifyEmailNotFoundMessage(unregisteredEmail);
   });
 
-  it('menggunakan format email yang salah', function () {
+  it('TC_FORGOTPWD_03 - Verifikasi pesan error validasi ketika pengguna memasukkan alamat email dengan format yang salah pada halaman "Forgot Password', function () {
     const invalidEmail = this.userData.invalidEmail;
     
     forgotPasswordPage.clickLoginLink()
@@ -40,7 +40,7 @@ describe('Forgot Password Test Suite', function () {
     .verifyInvalidEmailFormatMessage();
   });
 
-  it('tanpa mengisi field email', function () {
+  it('TC_FORGOTPWD_04 - Verifikasi pesan error validasi ketika pengguna mencoba melanjutkan proses "Forgot Password" tanpa mengisi field email', function () {
     forgotPasswordPage.clickLoginLink()
     .clickForgotPasswordLink()
     .verifyInstructionText()

@@ -2,16 +2,15 @@
 import LogoutPage from '../../support/pages/logoutPage';
 
 describe('Logout Test', () => {
-  it('Logout setelah login berhasil', () => {
-    cy.fixture('loginData.json').then(({ validUser }) => {
-      const { email, password } = validUser;
+  it('TC_LOGOUT_01 - Memverifikasi fungsionalitas logout pengguna', function () {
+    cy.fixture('loginData.json').then(function (userData) {
+      const { email, password } = userData.validUser;
 
-      LogoutPage.visitHomePage();
-      LogoutPage.login(email, password);
-      LogoutPage.assertUserIsLoggedIn();
-      LogoutPage.logout();
-
-      cy.url().should('eq', 'https://soapleasure.com/');
+      LogoutPage.visitHomePage()
+        .login(email, password)
+        .assertUserIsLoggedIn()
+        .logout()
+        .assertUserLogout();
     });
   });
 });
