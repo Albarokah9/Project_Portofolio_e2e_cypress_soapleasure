@@ -5,6 +5,7 @@ Pengujian dilakukan untuk memverifikasi fungsionalitas inti aplikasi, meliputi:
 
 Login
 Registrasi Akun
+
 Lupa Kata Sandi
 Logout
 Checkout Produk
