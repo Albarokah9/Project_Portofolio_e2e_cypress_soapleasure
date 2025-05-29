@@ -15,6 +15,7 @@ Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) men
 - Checkout
 
 ## Test Case & Report
+https://drive.google.com/drive/folders/1k1AeSEvJvtBNFns2YaJbUl-72DiO1E6S?usp=drive_link
 
 ## Setup
 ```bash
