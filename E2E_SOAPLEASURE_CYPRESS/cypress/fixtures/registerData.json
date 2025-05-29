@@ -2,7 +2,7 @@
   "validUser": {
     "firstName": "test",
     "lastName": "automation",
-    "email": "test@gmail.com",
+    "email": "test01@gmail.com",
     "phone": "08123456789",
     "password": "Cobatest",
     "confirmPassword": "Cobatest"
@@ -10,7 +10,7 @@
   "userWithAlphanumericPassword": {
     "firstName": "test",
     "lastName": "automation",
-    "email": "test1@gmail.com",
+    "email": "test02@gmail.com",
     "phone": "08123456789",
     "password": "abc12345",
     "confirmPassword": "abc12345"
@@ -18,7 +18,7 @@
   "userWithMatchingPasswords": {
     "firstName": "test",
     "lastName": "automation",
-    "email": "test2@gmail.com",
+    "email": "test03@gmail.com",
     "phone": "08123456789",
     "password": "abc12345",
     "confirmPassword": "abc12345"

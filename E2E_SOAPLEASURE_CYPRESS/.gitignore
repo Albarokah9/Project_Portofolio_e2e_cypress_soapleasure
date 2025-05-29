@@ -1,1 +1,3 @@
 node_modules
+# Ignore Cypress screenshots
+cypress/screenshots/

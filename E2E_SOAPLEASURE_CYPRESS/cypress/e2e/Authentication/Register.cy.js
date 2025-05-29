@@ -16,9 +16,9 @@ describe('Register Test Suite', () => {
       .typeEmail(email)
       .typePhone(phone)
       .typePassword(password)
-      .typeConfirmPassword(confirmPassword);
-    //   .clickRegisterButton();
-    // RegisterPage.assertRegistrationSuccessMessage(email);
+      .typeConfirmPassword(confirmPassword)
+       .clickRegisterButton();
+     RegisterPage.assertRegistrationSuccessMessage(email);
   });
 
   it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & ankga', function () {
@@ -30,9 +30,9 @@ describe('Register Test Suite', () => {
       .typeEmail(email)
       .typePhone(phone)
       .typePassword(password)
-      .typeConfirmPassword(confirmPassword);
-    //  .clickRegisterButton();
-    // RegisterPage.assertRegistrationSuccessMessage(email);
+      .typeConfirmPassword(confirmPassword)
+    .clickRegisterButton();
+    RegisterPage.assertRegistrationSuccessMessage(email);
   });
 
   it('TC_REG_03 - Register dengan konfirmasi password sama dengan password', function () {
@@ -44,9 +44,9 @@ describe('Register Test Suite', () => {
       .typeEmail(email)
       .typePhone(phone)
       .typePassword(password)
-      .typeConfirmPassword(confirmPassword);
-    //   .clickRegisterButton();
-    // RegisterPage.assertRegistrationSuccessMessage(email);
+      .typeConfirmPassword(confirmPassword)
+       .clickRegisterButton();
+     RegisterPage.assertRegistrationSuccessMessage(email);
   });
 
   it('TC_REG_04 - Verifikasi validasi error saat field email dikosongkan pada form registrasi', function () {
@@ -86,9 +86,8 @@ describe('Register Test Suite', () => {
       .typeEmail(email)
       .typePhone(phone)
       .typePassword(password)
-      .typeConfirmPassword(password);
-    //   .clickRegisterButton();
-    // RegisterPage.assertRequiredConfirmPasswordMessage();
+      .clickRegisterButton();
+     RegisterPage.assertRequiredConfirmPasswordMessage();
   });
 
   it('TC_REG_07 - Verifikasi pesan error validasi ketika format email yang dimasukkan salah pada form registrasi', function () {
