@@ -1,7 +1,6 @@
 Dokumentasi Pengujian Otomatis Soapleasure
 Repositori ini berisi test case dan laporan hasil pengujian otomatis untuk aplikasi e-commerce Soapleasure.
 
-Ringkasan Pengujian
 Pengujian dilakukan untuk memverifikasi fungsionalitas inti aplikasi, meliputi:
 
 Login
