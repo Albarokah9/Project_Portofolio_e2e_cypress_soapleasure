@@ -1,11 +1,11 @@
 # E2E Testing - SoapPleasure Website
 
-Automation testing untuk website [soapleasure.com](https://soapleasure.com/) menggunakan Cypress dan Mochawesome reporting.
+Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) menggunakan Cypress dan Mochawesome reporting.
 
 ## Tech Stack
 - **Framework**: Cypress
 - **Reporting**: Cypress Mochawesome Reporter
-- **Website**: SoapPleasure.com
+- **Website**: Soapleasure.com
 
 ## Test Cases
 - Register
