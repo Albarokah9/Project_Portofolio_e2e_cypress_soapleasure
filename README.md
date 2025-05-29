@@ -14,6 +14,8 @@ Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) men
 - Forgot Password
 - Checkout
 
+## Test Case & Report
+
 ## Setup
 ```bash
 npm install
