@@ -3,9 +3,9 @@ Repositori ini berisi test case dan laporan hasil pengujian otomatis untuk aplik
 
 Pengujian dilakukan untuk memverifikasi fungsionalitas inti aplikasi, meliputi:
 
-Login
-
 Registrasi Akun
+
+Login
 
 Lupa Kata Sandi
 
