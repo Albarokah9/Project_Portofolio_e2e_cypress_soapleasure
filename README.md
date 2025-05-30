@@ -6,6 +6,7 @@ Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) men
 - **Framework**: Cypress
 - **Reporting**: Cypress Mochawesome Reporter
 - **Website**: Soapleasure.com
+- **Manajemen Test Case**: ClickUp
 
 ## Test Cases
 - Register
