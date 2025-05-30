@@ -1,4 +1,4 @@
-# E2E Testing - SoapPleasure Website
+# E2E Testing - Soapleasure Website
 
 Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) menggunakan Cypress dan Mochawesome reporting.
 
@@ -13,6 +13,9 @@ Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) men
 - Logout  
 - Forgot Password
 - Checkout
+
+## Test Case & Report
+https://drive.google.com/drive/folders/1k1AeSEvJvtBNFns2YaJbUl-72DiO1E6S?usp=drive_link
 
 ## Setup
 ```bash
