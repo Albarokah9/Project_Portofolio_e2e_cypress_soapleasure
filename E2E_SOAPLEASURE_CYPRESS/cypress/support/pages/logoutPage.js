@@ -24,7 +24,7 @@ class LogoutPage {
 
   logout() {
     cy.get(SELECTORS.dropdown).click();
-    cy.get(SELECTORS.dropdownMenu, { timeout: 10000 }).should('be.visible'); // pastikan dropdown muncul
+    cy.get(SELECTORS.dropdownMenu, { timeout: 10000 }).should('be.visible');
     cy.get(SELECTORS.logoutButton).click();
     return this;
   }
@@ -36,6 +36,7 @@ class LogoutPage {
 
   assertUserLogout() {
     cy.url().should('eq', 'https://soapleasure.com/');
+    cy.screenshot("Logout Success", { capture: 'fullPage' });
     return this;
   }
 }
