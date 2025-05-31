@@ -1,3 +1,4 @@
+git clone https://github.com/Albarokah9/Project_Portofolio_e2e_cypress_soapleasure
 # E2E Testing - Soapleasure Website
 
 Automation testing untuk website [Soapleasure.com](https://soapleasure.com/) menggunakan Cypress dan Mochawesome reporting.
