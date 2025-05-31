@@ -15,8 +15,6 @@ class ForgotPasswordPage {
     return this;
   }
 
-
-
   clickLoginLink() {
     cy.get(SELECTORS.loginLink).click();
     return this;
@@ -54,6 +52,7 @@ class ForgotPasswordPage {
         'contain',
         'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.'
       );
+      cy.screenshot("Forgot Password Success Page", { capture: 'fullPage' });
       return this;
   }
 
@@ -61,6 +60,7 @@ class ForgotPasswordPage {
     cy.get(SELECTORS.toastMessage)
       .should('be.visible')
       .and('contain', `Email: ${email} not found!`);
+      cy.screenshot("Forgot Password verify Email Not Found Page", { capture: 'fullPage' });
       return this;
   }
 
@@ -68,6 +68,7 @@ class ForgotPasswordPage {
     cy.get(SELECTORS.invalidFeedback)
       .should('be.visible')
       .and('contain', 'Email address must be a valid email');
+      cy.screenshot("Forgot Password Invalid Email Format Page", { capture: 'fullPage' });
       return this;
   }
 
@@ -75,6 +76,7 @@ class ForgotPasswordPage {
     cy.get(SELECTORS.invalidFeedback)
       .should('be.visible')
       .and('contain', 'Email address is a required field');
+      cy.screenshot("Forgot Password Required Email Page", { capture: 'fullPage' });
       return this;
   }
 }

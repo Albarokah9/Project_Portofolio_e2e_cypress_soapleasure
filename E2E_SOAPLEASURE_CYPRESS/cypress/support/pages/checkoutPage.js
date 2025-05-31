@@ -83,6 +83,7 @@ checkout() {
 
 assertProductAddedToCart() {
     cy.get('.react-toast-notifications__toast__content').should('be.visible').should('contain', 'Product has been added to your cart');
+    cy.screenshot("Product Added to Cart", { capture: 'fullPage' });
     return this;
 }
 
