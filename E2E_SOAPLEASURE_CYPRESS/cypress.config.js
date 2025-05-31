@@ -16,4 +16,3 @@ module.exports = defineConfig({
     baseUrl: 'https://soapleasure.com/',
   },
 });
-

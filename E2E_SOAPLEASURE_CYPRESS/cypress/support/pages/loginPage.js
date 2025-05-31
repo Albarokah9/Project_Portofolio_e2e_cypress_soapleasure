@@ -52,31 +52,38 @@ class LoginPage {
 
   assertUserIsLoggedIn() {
     cy.get(SELECTORS.dropdown, { timeout: 10000 }).should('be.visible');
+    cy.screenshot("Login Success", { capture: 'fullPage' });
   }
 
   assertInvalidCredentialsMessage() {
     cy.get(SELECTORS.alertMessage).should('contain', 'Invalid email address or password');
+    cy.screenshot("Login Failed with Invalid Credentials", { capture: 'fullPage' });
   }
 
   asserInvalidEmailFormatMessage() {
     cy.get(SELECTORS.invalidFeedback).should('contain', 'Please enter a valid email address');
+    cy.screenshot("Login Failed with Invalid Email Format", { capture: 'fullPage' });
   }
 
   assertRequiredEmailMessage() {
     cy.get(SELECTORS.invalidFeedback).should('contain', 'Email address is required');
+    cy.screenshot("Login Failed with Required Email", { capture: 'fullPage' });
   }
 
   assertRequiredPasswordMessage() {
     cy.get(SELECTORS.invalidFeedback).should('contain', 'Please enter your password');
+    cy.screenshot("Login Failed with Required Password", { capture: 'fullPage' });
   }
 
   assertBothFieldsRequiredMessage() {
     cy.get(SELECTORS.invalidFeedback).eq(0).should('contain', 'Email address is required');
     cy.get(SELECTORS.invalidFeedback).eq(1).should('contain', 'Please enter your password');
+    cy.screenshot("Login Failed with Both Fields Required", { capture: 'fullPage' });
   }
 
   assertPasswordMasked() {
     cy.get(SELECTORS.passwordInput).should('have.attr', 'type', 'password');
+    cy.screenshot("Login with Password Masked", { capture: 'fullPage' });
   }
 }
 
