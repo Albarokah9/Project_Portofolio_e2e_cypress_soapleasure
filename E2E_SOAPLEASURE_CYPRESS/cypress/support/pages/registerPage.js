@@ -56,10 +56,12 @@ class RegisterPage {
     cy.get(SELECTORS.confirmPasswordError)
       .should('be.visible')
       .and('contain', Massage.requiredConfirmPassword);
+      cy.screenshot("Register Required Field Error Page", { capture: 'fullPage' });
   }
 
   assertPhoneErrorMessage() {
     cy.get(SELECTORS.phoneError).should('be.visible').and('contain', 'Phone is invalid format');
+    cy.screenshot("Register Phone Error Page", { capture: 'fullPage' });
   }
 
   assertRegistrationSuccessMessage(email) {
@@ -69,12 +71,14 @@ class RegisterPage {
         'contain',
         `Thank you for registering, We have sent a confirmation link to ${email}, please check your inbox / spam folder`
       );
+    cy.screenshot("Register Success Page", { capture: 'fullPage' });
   }
 
   assertEmailErrorMessage() {
     cy.get(SELECTORS.emailError)
       .should('be.visible')
       .and('contain', 'Email address is a required field');
+    cy.screenshot("Register Email Error Page", { capture: 'fullPage' });
   }
 
   assertInvalidEmailFormatErrorMessage() {
@@ -82,6 +86,7 @@ class RegisterPage {
       expect($input[0].validationMessage).to.contain(
         "Please include an '@' in the email address. 'test5mail.com' is missing an '@'."
       );
+      cy.screenshot("Register Invalid Email Format Page", { capture: 'fullPage' });
     });
   }
 
@@ -89,18 +94,21 @@ class RegisterPage {
     cy.get(SELECTORS.passwordError)
       .should('be.visible')
       .and('contain', 'Password must be at least 8 characters');
+    cy.screenshot("Register Short Password Page", { capture: 'fullPage' });
   }
 
   assertRequiredConfirmPasswordMessage() {
     cy.get(SELECTORS.confirmPasswordError)
       .should('be.visible')
       .and('contain', 'Confirm password must match with password');
+    cy.screenshot("Register Required Confirm Password Page", { capture: 'fullPage' });
   }
 
   assertRequiredPasswordMismatchMessage() {
     cy.get(SELECTORS.confirmPasswordError)
       .should('be.visible')
       .and('contain', 'Confirm password must match with password');
+    cy.screenshot("Register Password Mismatch Page", { capture: 'fullPage' });
   }
 
   typeFirstName(firstName) {
