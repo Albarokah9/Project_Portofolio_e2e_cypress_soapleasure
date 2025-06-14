@@ -6,21 +6,21 @@
   "author": "Albarokah Rifansah Sutanto Putra",
   "license": "MIT",
   "scripts": {
-  "test:open": "cypress open",
-  "clean:reports": "rimraf cypress/reports",
-  "prereport": "mkdirp cypress/reports/mocha",
-  "test:run": "yarn prereport && cypress run",
-  "test:run:report": "yarn clean:reports && yarn test:run && yarn open:report",
-  "open:report": "start cypress/reports/mocha/index.html",
-  "test:open:chrome": "cypress open --browser chrome",
-  "test:open:firefox": "cypress open --browser firefox",
-  "test:open:edge": "cypress open --browser edge",
-  "test:open:electron": "cypress open --browser electron",
-  "test:smoke": "cypress run --env grepTags=@smoke",
-  "test:smoke:report": "yarn clean:reports && yarn prereport && yarn test:smoke && yarn generate:report && yarn open:report",
-  "lint": "eslint cypress/**/*.js",
-  "format": "prettier --write \"cypress/**/*.js\"",
-  "format:test": "prettier --write \"cypress/**/*.js\""
+    "test:open": "cypress open",
+    "clean:reports": "rimraf cypress/reports",
+    "prereport": "mkdirp cypress/reports/mocha",
+    "test:run": "yarn prereport && cypress run",
+    "test:run:report": "yarn clean:reports && yarn test:run && yarn open:report",
+    "open:report": "start cypress/reports/mocha/index.html",
+    "test:open:chrome": "cypress open --browser chrome",
+    "test:open:firefox": "cypress open --browser firefox",
+    "test:open:edge": "cypress open --browser edge",
+    "test:open:electron": "cypress open --browser electron",
+    "test:smoke": "cypress run --env grepTags=@smoke",
+    "test:smoke:report": "yarn clean:reports && yarn prereport && yarn test:smoke && yarn generate:report && yarn open:report",
+    "lint": "eslint cypress/**/*.js",
+    "format": "prettier --write \"cypress/**/*.js\"",
+    "format:test": "prettier --write \"cypress/**/*.js\""
   },
   "cypress": {
     "video": false,
@@ -42,7 +42,8 @@
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.2.0",
     "prettier": "^3.5.3",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "xlsx": "^0.18.5"
   },
   "repository": "https://github.com/Albarokah9/Project_Portofolio_e2e_cypress_soapleasure.git"
 }
