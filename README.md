@@ -27,7 +27,7 @@ npm install --global yarn
 ## Run Tests
 ```bash
 # Open Cypress Test Runner
-npm run test:open
+yarn test:open
 
 # Run all tests with report
 yarn test:run:report
