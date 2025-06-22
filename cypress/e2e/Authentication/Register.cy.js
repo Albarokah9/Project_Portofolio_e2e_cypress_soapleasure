@@ -6,7 +6,7 @@ describe('Register Test Suite', () => {
     cy.fixture('registerData.json').as('userData');
     RegisterPage.visitRegisterPage();
   });
-
+ 
   it('TC_REG_01 - Berhasil membuat akun baru', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.validUser;
@@ -17,8 +17,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-       .clickRegisterButton();
-     RegisterPage.assertRegistrationSuccessMessage(email);
+      .clickRegisterButton()
+      .assertRegistrationSuccessMessage(email);
   });
 
   it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & ankga', function () {
@@ -31,8 +31,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-    .clickRegisterButton();
-    RegisterPage.assertRegistrationSuccessMessage(email);
+      .clickRegisterButton()
+      .assertRegistrationSuccessMessage(email);
   });
 
   it('TC_REG_03 - Register dengan konfirmasi password sama dengan password', function () {
@@ -45,8 +45,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-       .clickRegisterButton();
-     RegisterPage.assertRegistrationSuccessMessage(email);
+      .clickRegisterButton()
+      .assertRegistrationSuccessMessage(email);
   });
 
   it('TC_REG_04 - Verifikasi validasi error saat field email dikosongkan pada form registrasi', function () {
@@ -59,8 +59,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton();
-    RegisterPage.assertEmailErrorMessage();
+      .clickRegisterButton()
+      .assertEmailErrorMessage();
   });
 
   it('TC_REG_05 - Verifikasi pesan error validasi ketika password yang dimasukkan kurang dari 8 karakter', function () {
@@ -73,8 +73,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton();
-    RegisterPage.assertShortPasswordErrorMessage();
+      .clickRegisterButton()
+      .assertShortPasswordErrorMessage();
   });
 
   it('TC_REG_06 - Verifikasi pesan error validasi ketika field konfirmasi password dikosongkan pada form registrasi', function () {
@@ -86,8 +86,8 @@ describe('Register Test Suite', () => {
       .typeEmail(email)
       .typePhone(phone)
       .typePassword(password)
-      .clickRegisterButton();
-     RegisterPage.assertRequiredConfirmPasswordMessage();
+      .clickRegisterButton()
+      .assertRequiredConfirmPasswordMessage();
   });
 
   it('TC_REG_07 - Verifikasi pesan error validasi ketika format email yang dimasukkan salah pada form registrasi', function () {
@@ -100,8 +100,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton();
-    RegisterPage.assertInvalidEmailFormatErrorMessage();
+      .clickRegisterButton()
+      .assertInvalidEmailFormatErrorMessage();
   });
 
   it('TC_REG_08 -Verifikasi pesan error validasi ketika format nomor HP yang dimasukkan salah (misalnya, mengandung huruf atau panjang tidak sesuai)', function () {
@@ -114,8 +114,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton();
-    RegisterPage.assertPhoneErrorMessage();
+      .clickRegisterButton()
+      .assertPhoneErrorMessage();
   });
 
   it('TC_REG_09 - Verifikasi pesan error validasi ketika nilai pada field konfirmasi password tidak sama dengan nilai pada field password', function () {
@@ -128,8 +128,8 @@ describe('Register Test Suite', () => {
       .typePhone(phone)
       .typePassword(password)
       .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton();
-    RegisterPage.assertRequiredPasswordMismatchMessage();
+      .clickRegisterButton()
+      .assertRequiredPasswordMismatchMessage();
   });
 
   it('TC_REG_10 - Verifikasi pesan error validasi ketika mencoba registrasi dengan semua field input dibiarkan kosong', () => {
