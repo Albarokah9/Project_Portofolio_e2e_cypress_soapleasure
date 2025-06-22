@@ -21,7 +21,7 @@ https://drive.google.com/drive/folders/1k1AeSEvJvtBNFns2YaJbUl-72DiO1E6S?usp=dri
 
 ## Setup
 ```bash
-npm install
+npm install --global yarn
 ```
 
 ## Run Tests
@@ -30,12 +30,12 @@ npm install
 npm run test:open
 
 # Run all tests with report
-npm run report
+yarn test:run:report
 
 # Run tests in different browsers
-npm run test:open:chrome
-npm run test:open:firefox
-npm run test:open:edge
+yarn test:open:chrome
+yarn test:open:firefox
+yarn test:open:edge
 ```
 
 Portfolio project untuk demonstrasi E2E testing automation.
