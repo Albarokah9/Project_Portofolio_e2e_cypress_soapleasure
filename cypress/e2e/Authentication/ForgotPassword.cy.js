@@ -47,4 +47,8 @@ describe('Forgot Password Test Suite', function () {
     .clickSubmitButton()
     .verifyRequiredEmailMessage();
   });
+
+  afterEach(() => {
+    cy.clearCookies();
+  })
 });

@@ -25,4 +25,8 @@ describe('Checkout Test Suite', () => {
     .checkout()
     .assertProductAddedToCart();
    });
+
+   afterEach(() => {
+    cy.clearCookies();
+  })
 });
