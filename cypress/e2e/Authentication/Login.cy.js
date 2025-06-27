@@ -94,9 +94,13 @@ describe('Login Test Suite', () => {
 
   it('TC_LOGIN_11 - Login meski belum verifikasi email', function () {
     const { unverifiedAccount } = this.userData;
+
     LoginPage.typeEmail(unverifiedAccount.email)
       .typePassword(unverifiedAccount.password)
       .clickLogin()
       .assertUserIsLoggedIn();
   });
+  afterEach(() => {
+    cy.clearCookies();
+  })
 });

@@ -3,7 +3,7 @@ import LogoutPage from '../../support/pages/logoutPage';
 
 describe('Logout Test', () => {
   it('TC_LOGOUT_01 - Memverifikasi fungsionalitas logout pengguna', function () {
-    cy.fixture('loginData.json').then(function (userData) {
+    cy.fixture('loginData.json').then(function(userData) {
       const { email, password } = userData.validUser;
 
       LogoutPage.visitHomePage()
@@ -11,6 +11,10 @@ describe('Logout Test', () => {
         .assertUserIsLoggedIn()
         .logout()
         .assertUserLogout();
+      });
     });
+
+    afterEach(() => {
+      cy.clearCookies();
+    })
   });
-});

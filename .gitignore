@@ -2,4 +2,3 @@ node_modules
 # Ignore Cypress 
 cypress/screenshots/
 cypress/videos/
-cypress/reports/

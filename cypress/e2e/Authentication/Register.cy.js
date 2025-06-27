@@ -6,7 +6,7 @@ describe('Register Test Suite', () => {
     cy.fixture('registerData.json').as('userData');
     RegisterPage.visitRegisterPage();
   });
- 
+
   it('TC_REG_01 - Berhasil membuat akun baru', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.validUser;
@@ -21,7 +21,7 @@ describe('Register Test Suite', () => {
       .assertRegistrationSuccessMessage(email);
   });
 
-  it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & ankga', function () {
+  it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & angka', function () {
     const { firstName, lastName, email, phone, password, confirmPassword } =
       this.userData.userWithAlphanumericPassword;
 
@@ -136,4 +136,8 @@ describe('Register Test Suite', () => {
     RegisterPage.clickRegisterButton();
     RegisterPage.assertRequiredFieldErrorMessage();
   });
+
+  afterEach(() => {
+    cy.clearCookies();
+  })
 });
