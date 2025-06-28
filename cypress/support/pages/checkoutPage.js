@@ -22,7 +22,7 @@ visitHomePage() {
 } 
     
 typeSearchAsGuest() {
-    cy.get(SELECTORS.searchInput).type('Soapleasure Classic Brew Coffee Soap', '{enter}');
+    cy.get(SELECTORS.searchInput).type('Soapleasure Classic Brew Coffee Soap{enter}');
     return this;
 }
 
