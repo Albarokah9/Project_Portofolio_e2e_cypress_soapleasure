@@ -13,9 +13,9 @@ describe('Checkout Test Suite', () => {
     .buyNow()
     .checkout()
     .assertProductAddedToCart();
-   });
+  });
 
-   it('TC_CO_002 - Verifikasi pengguna yang sudah login dapat menemukan produk melalui navigasi kategori, menambahkannya ke keranjang, dan berhasil menyelesaikan proses checkout', function () {
+  it('TC_CO_002 - Verifikasi pengguna yang sudah login dapat menemukan produk melalui navigasi kategori, menambahkannya ke keranjang, dan berhasil menyelesaikan proses checkout', function () {
     CheckoutPage.clickLogin()
     .typeEmail()
     .typePassword()
@@ -24,9 +24,9 @@ describe('Checkout Test Suite', () => {
     .buyNow()
     .checkout()
     .assertProductAddedToCart();
-   });
+  });
 
-   afterEach(() => {
+  afterEach(() => {
     cy.clearCookies();
   })
 });
