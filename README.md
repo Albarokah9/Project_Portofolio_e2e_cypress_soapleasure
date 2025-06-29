@@ -22,6 +22,10 @@ https://drive.google.com/drive/folders/1k1AeSEvJvtBNFns2YaJbUl-72DiO1E6S?usp=dri
 ## Setup
 ```bash
 npm install --global yarn
+git clone https://github.com/Albarokah9/Project_Portofolio_e2e_cypress_soapleasure.git
+cd Project_Portofolio_e2e_cypress_soapleasure
+yarn install
+
 ```
 
 ## Run Tests
