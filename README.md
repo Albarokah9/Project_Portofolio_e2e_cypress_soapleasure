@@ -23,15 +23,19 @@ https://drive.google.com/drive/folders/1k1AeSEvJvtBNFns2YaJbUl-72DiO1E6S?usp=dri
 - Node.js (versi 16 atau lebih baru)
 - Git
   
-## Setup
+## Setup & Installation
 ```bash
 npm install --global yarn
-git clone https://github.com/Albarokah9/Project_Portofolio_e2e_cypress_soapleasure.git
-cd Project_Portofolio_e2e_cypress_soapleasure
-yarn install
-
 ```
-
+##  Clone Repository
+```bash
+git clone https://github.com/Albarokah9/Project_Portofolio_e2e_cypress_soapleasure
+cd Project_Portofolio_e2e_cypress_soapleasure
+```
+## Install Dependencies
+```bash
+yarn install
+```
 ## Run Tests
 ```bash
 # Open Cypress Test Runner
