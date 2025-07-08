@@ -139,5 +139,5 @@ describe('Register Test Suite', () => {
 
   afterEach(() => {
     cy.clearCookies();
-  })
+  });
 });
