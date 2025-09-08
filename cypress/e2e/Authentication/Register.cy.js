@@ -38,7 +38,7 @@ describe('Register Test Suite', () => {
     cy.get('@userData').then((userData) => {
     const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithEmptyEmail;
 
-    RegisterPage.typeFirstName(firstName, lastName, email, phone, password, confirmPassword)
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertEmailErrorMessage();
     });
   });
@@ -66,7 +66,7 @@ describe('Register Test Suite', () => {
     const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithInvalidEmailFormat;
 
     RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
-      .assertInvalidEmailFormatErrorMessage();
+      .assertInvalidEmailFormatErrorMessage(email);
     });
   });
 
@@ -96,4 +96,9 @@ describe('Register Test Suite', () => {
   afterEach(() => {
     cy.clearCookies();
   });
+});
+
+it('email', function() {
+  cy.visit('https://soapleasure.com/')
+  
 });
