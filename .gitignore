@@ -2,3 +2,4 @@ node_modules
 # Ignore Cypress 
 cypress/screenshots/
 cypress/videos/
+tabel selector atribute/

@@ -3,133 +3,89 @@ import RegisterPage from '../../support/pages/registerPage';
 
 describe('Register Test Suite', () => {
   beforeEach(function () {
-    cy.fixture('registerData.json').as('userData');
     RegisterPage.visitRegisterPage();
+    cy.fixture('registerData.json').as('userData');
   });
 
-  it('TC_REG_01 - Berhasil membuat akun baru', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.validUser;
+  it('TC_REG_01 - Berhasil membuat akun baru', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.validUser;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertRegistrationSuccessMessage(email);
+    });
   });
 
-  it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & angka', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithAlphanumericPassword;
+  it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & angka', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithAlphanumericPassword;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertRegistrationSuccessMessage(email);
+    });
   });
 
-  it('TC_REG_03 - Register dengan konfirmasi password sama dengan password', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithMatchingPasswords;
+  it('TC_REG_03 - Register dengan konfirmasi password sama dengan password', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithMatchingPasswords;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertRegistrationSuccessMessage(email);
+    });
   });
 
-  it('TC_REG_04 - Verifikasi validasi error saat field email dikosongkan pada form registrasi', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithEmptyEmail;
+  it('TC_REG_04 - Verifikasi validasi error saat field email dikosongkan pada form registrasi', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithEmptyEmail;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.typeFirstName(firstName, lastName, email, phone, password, confirmPassword)
       .assertEmailErrorMessage();
+    });
   });
 
-  it('TC_REG_05 - Verifikasi pesan error validasi ketika password yang dimasukkan kurang dari 8 karakter', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithShortPassword;
+  it('TC_REG_05 - Verifikasi pesan error validasi ketika password yang dimasukkan kurang dari 8 karakter', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithShortPassword;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertShortPasswordErrorMessage();
+    });
   });
 
-  it('TC_REG_06 - Verifikasi pesan error validasi ketika field konfirmasi password dikosongkan pada form registrasi', function () {
-    const { firstName, lastName, email, phone, password } =
-      this.userData.userWithEmptyConfirmPassword;
+  it('TC_REG_06 - Verifikasi pesan error validasi ketika field konfirmasi password dikosongkan pada form registrasi', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password } = userData.userWithEmptyConfirmPassword;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password)
       .assertRequiredConfirmPasswordMessage();
+    });
   });
 
   it('TC_REG_07 - Verifikasi pesan error validasi ketika format email yang dimasukkan salah pada form registrasi', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithInvalidEmailFormat;
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithInvalidEmailFormat;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertInvalidEmailFormatErrorMessage();
+    });
   });
 
   it('TC_REG_08 -Verifikasi pesan error validasi ketika format nomor HP yang dimasukkan salah (misalnya, mengandung huruf atau panjang tidak sesuai)', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithInvalidPhoneNumber;
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithInvalidPhoneNumber;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertPhoneErrorMessage();
+    });
   });
 
-  it('TC_REG_09 - Verifikasi pesan error validasi ketika nilai pada field konfirmasi password tidak sama dengan nilai pada field password', function () {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      this.userData.userWithMismatchedPasswords;
+  it('TC_REG_09 - Verifikasi pesan error validasi ketika nilai pada field konfirmasi password tidak sama dengan nilai pada field password', () => {
+    cy.get('@userData').then((userData) => {
+    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithMismatchedPasswords;
 
-    RegisterPage.typeFirstName(firstName)
-      .typeLastName(lastName)
-      .typeEmail(email)
-      .typePhone(phone)
-      .typePassword(password)
-      .typeConfirmPassword(confirmPassword)
-      .clickRegisterButton()
+    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
       .assertRequiredPasswordMismatchMessage();
+    });
   });
 
   it('TC_REG_10 - Verifikasi pesan error validasi ketika mencoba registrasi dengan semua field input dibiarkan kosong', () => {
