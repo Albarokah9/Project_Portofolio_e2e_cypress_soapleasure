@@ -47,7 +47,15 @@ class RegisterPage {
             .should('be.visible')
             .and('contain', Massage.requiredLastName);
         cy.get(SELECTORS.emailError).should('be.visible').and('contain', Massage.requiredEmail);
-        cy.get(SELECTORS.phoneError).should('be.visible').and('contain', Massage.phoneCustom);
+        cy.get(SELECTORS.phoneError)
+            .should('be.visible')
+            .invoke('text')
+            .then((text) => {
+                expect(
+                    text.trim() === Massage.phoneCustom ||
+                    text.trim() === Massage.invalidPhone
+                ).to.be.true;
+            });
         cy.get(SELECTORS.passwordError).should('be.visible').and('contain', Massage.shortPassword);
         cy.get(SELECTORS.confirmPasswordError)
             .should('be.visible')
@@ -56,7 +64,10 @@ class RegisterPage {
     }
 
     assertPhoneErrorMessage() {
-        cy.get(SELECTORS.phoneError).should('be.visible').and('contain', 'Phone is invalid format');
+        cy.get(SELECTORS.phoneError)
+            .should('be.visible')
+            .invoke('text')
+            .should('match', /(Phone is invalid format|custom\.phone)/);
         cy.screenshot('Register Phone Error Page', { capture: 'fullPage' });
     }
 

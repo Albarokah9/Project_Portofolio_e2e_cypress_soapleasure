@@ -18,7 +18,7 @@ module.exports = defineConfig({
             return config;
         },
         baseUrl: 'https://soapleasure.com/',
-        pageLoadTimeout: 120000,
+        pageLoadTimeout: 100000,
         experimentalStudio: true,
         watchForFileChanges: false, // Disable file watching to prevent Cypress from automatically re-running tests on file changes
     },

@@ -31,13 +31,10 @@
         }
     },
     "devDependencies": {
-        "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
-        "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
-        "@cucumber/cucumber": "^11.2.0",
         "@shelex/cypress-allure-plugin": "^2.41.1",
         "@testing-library/cypress": "^10.0.3",
         "allure-commandline": "^2.34.0",
-        "cypress": "^15.1.0",
+        "cypress": "^15.4.0",
         "cypress-mochawesome-reporter": "^3.8.2",
         "esbuild": "^0.25.4",
         "mkdirp": "^3.0.1",
