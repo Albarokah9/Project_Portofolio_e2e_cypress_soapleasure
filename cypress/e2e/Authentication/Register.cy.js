@@ -1,6 +1,12 @@
 /// <reference types="cypress" />
 import RegisterPage from '../../support/pages/registerPage';
 
+// Fungsi untuk generate email unik
+function generateUniqueEmail() {
+  const timestamp = Date.now();
+  return `user${timestamp}@mailinator.com`;
+}
+
 describe('Register Test Suite', () => {
   beforeEach(function () {
     RegisterPage.visitRegisterPage();
@@ -9,28 +15,31 @@ describe('Register Test Suite', () => {
 
   it('TC_REG_01 - Berhasil membuat akun baru', () => {
     cy.get('@userData').then((userData) => {
-    const { firstName, lastName, email, phone, password, confirmPassword } = userData.validUser;
+      const { firstName, lastName, phone, password, confirmPassword } = userData.validUser;
+      const email = generateUniqueEmail(); // generate email unik
 
-    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
-      .assertRegistrationSuccessMessage(email);
+      RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
+        .assertRegistrationSuccessMessage(email);
     });
   });
 
   it('TC_REG_02 - Register  dengan menggunakan kombinasi password huruf & angka', () => {
     cy.get('@userData').then((userData) => {
-    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithAlphanumericPassword;
+      const { firstName, lastName, phone, password, confirmPassword } = userData.userWithAlphanumericPassword;
+      const email = generateUniqueEmail();
 
-    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
-      .assertRegistrationSuccessMessage(email);
+      RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
+        .assertRegistrationSuccessMessage(email);
     });
   });
 
   it('TC_REG_03 - Register dengan konfirmasi password sama dengan password', () => {
     cy.get('@userData').then((userData) => {
-    const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithMatchingPasswords;
+      const { firstName, lastName, phone, password, confirmPassword } = userData.userWithMatchingPasswords;
+      const email = generateUniqueEmail();
 
-    RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
-      .assertRegistrationSuccessMessage(email);
+      RegisterPage.register(firstName, lastName, email, phone, password, confirmPassword)
+        .assertRegistrationSuccessMessage(email);
     });
   });
 
@@ -98,7 +107,3 @@ describe('Register Test Suite', () => {
   });
 });
 
-it('email', function() {
-  cy.visit('https://soapleasure.com/')
-  
-});
