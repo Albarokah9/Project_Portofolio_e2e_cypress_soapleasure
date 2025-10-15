@@ -79,7 +79,7 @@ describe('Register Test Suite', () => {
     });
   });
 
-  it('TC_REG_08 -Verifikasi pesan error validasi ketika format nomor HP yang dimasukkan salah (misalnya, mengandung huruf atau panjang tidak sesuai)', function () {
+  it('TC_REG_08 - Verifikasi pesan error validasi ketika format nomor HP yang dimasukkan salah (misalnya, mengandung huruf atau panjang tidak sesuai)', function () {
     cy.get('@userData').then((userData) => {
     const { firstName, lastName, email, phone, password, confirmPassword } = userData.userWithInvalidPhoneNumber;
 
