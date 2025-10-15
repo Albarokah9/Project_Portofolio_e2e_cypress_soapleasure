@@ -38,7 +38,7 @@
         "cypress-mochawesome-reporter": "^3.8.2",
         "esbuild": "^0.25.4",
         "mkdirp": "^3.0.1",
-        "mochawesome-merge": "^5.0.0",
+        "mochawesome-merge": "^4.2.1",
         "mochawesome-report-generator": "^6.2.0",
         "prettier": "^3.5.3",
         "rimraf": "^6.0.1",
