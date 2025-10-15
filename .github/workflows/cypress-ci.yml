@@ -41,3 +41,9 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
+      - name: Upload Mochawesome HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: cypress/reports/mocha/index.html
