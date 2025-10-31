@@ -79,7 +79,6 @@ class ForgotPasswordPage {
         cy.screenshot('Forgot Password Required Email Page', { capture: 'fullPage' });
         return this;
     }
-    
 }
 
 export default new ForgotPasswordPage();

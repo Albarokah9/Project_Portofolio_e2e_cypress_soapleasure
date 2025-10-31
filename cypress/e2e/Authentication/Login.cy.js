@@ -9,107 +9,92 @@ describe('Login Test Suite', () => {
 
     it('TC_LOGIN_01 - Login dengan kredensial benar', () => {
         cy.get('@userData').then((userData) => {
-          const { email, password } = userData.validUser;
-        
-        LoginPage.login(email, password)
-            .assertUserIsLoggedIn();
-    });  
-});
+            const { email, password } = userData.validUser;
+
+            LoginPage.login(email, password).assertUserIsLoggedIn();
+        });
+    });
 
     it('TC_LOGIN_02 - Login dengan menekan tombol Enter di di keyboard setelah menginput email dan password ', () => {
-        cy.get('@userData').then((userData) => {;
-        const { email, password } = userData.validUser;
+        cy.get('@userData').then((userData) => {
+            const { email, password } = userData.validUser;
 
-        LoginPage.login(email)
-            .pressEnterOnPassword(password)
-            .assertUserIsLoggedIn();
+            LoginPage.login(email).pressEnterOnPassword(password).assertUserIsLoggedIn();
         });
     });
 
     it('TC_LOGIN_03 - Login dengan password salah', () => {
         cy.get('@userData').then((userData) => {
-        const { email, password } = userData.invalidPassword;
+            const { email, password } = userData.invalidPassword;
 
-        LoginPage.login(email, password)
-            .assertInvalidCredentialsMessage();
+            LoginPage.login(email, password).assertInvalidCredentialsMessage();
         });
     });
 
     it('TC_LOGIN_04 - Login menggunkan email yang salah', () => {
         cy.get('@userData').then((userData) => {
-        const { email, password } = userData.invalidEmail;
+            const { email, password } = userData.invalidEmail;
 
-        LoginPage.login(email, password)
-            .assertInvalidCredentialsMessage();
+            LoginPage.login(email, password).assertInvalidCredentialsMessage();
         });
     });
 
     it('TC_LOGIN_05 - Login menggunakan email & password yang salah', () => {
         cy.get('@userData').then((userData) => {
-        const { email, password } = userData.invalidEmailAndPassword;
+            const { email, password } = userData.invalidEmailAndPassword;
 
-        LoginPage.login(email, password)
-            .assertInvalidCredentialsMessage();
+            LoginPage.login(email, password).assertInvalidCredentialsMessage();
         });
     });
 
     it('TC_LOGIN_06 - Login Mengunkan format email tidak valid', () => {
         cy.get('@userData').then((userData) => {
-        const { email, password } = userData.incorrectEmailFormat;
+            const { email, password } = userData.incorrectEmailFormat;
 
-        LoginPage.login(email, password)
-            .asserInvalidEmailFormatMessage();
+            LoginPage.login(email, password).asserInvalidEmailFormatMessage();
         });
     });
 
     it('TC_LOGIN_07 - Login tanpa mengisi kolom email', () => {
         cy.get('@userData').then((userData) => {
-        const { email } = userData.emptyEmail;
+            const { email } = userData.emptyEmail;
 
-        LoginPage.login(email)
-            .assertRequiredEmailMessage();
+            LoginPage.login(email).assertRequiredEmailMessage();
         });
     });
 
     it('TC_LOGIN_08 - Login tanpa mengisi kolom password', () => {
         cy.get('@userData').then((userData) => {
-        const { email } = userData.emptyPassword;
+            const { email } = userData.emptyPassword;
 
-        LoginPage.login(email)
-            .assertRequiredPasswordMessage();
+            LoginPage.login(email).assertRequiredPasswordMessage();
         });
     });
 
     it('TC_LOGIN_09 - Login tana mengisi field email & password', () => {
         cy.get('@userData').then((userData) => {
-        const { email, password } = userData.emptyFields;
+            const { email, password } = userData.emptyFields;
 
-        LoginPage.login(email, password)
-            .assertBothFieldsRequiredMessage();
+            LoginPage.login(email, password).assertBothFieldsRequiredMessage();
         });
     });
 
-    it('TC_LOGIN_10 - Memastikan karakter password dimasukkan sebagai titik/bintang', () =>{
+    it('TC_LOGIN_10 - Memastikan karakter password dimasukkan sebagai titik/bintang', () => {
         cy.get('@userData').then((userData) => {
-        const { password } = userData.validUser;
+            const { password } = userData.validUser;
 
-        LoginPage.login(password)
-            .assertPasswordMasked();
+            LoginPage.login(password).assertPasswordMasked();
         });
     });
-
 
     it('TC_LOGIN_11 - Login meski belum verifikasi email', () => {
-        cy.get('@userData').then((userData) => {;
-        const { email, password } = userData.unverifiedAccount;
+        cy.get('@userData').then((userData) => {
+            const { email, password } = userData.unverifiedAccount;
 
-        LoginPage.login(email, password)
-            .assertUserIsLoggedIn();
+            LoginPage.login(email, password).assertUserIsLoggedIn();
         });
     });
     afterEach(() => {
         cy.clearCookies();
     });
-    
 });
-

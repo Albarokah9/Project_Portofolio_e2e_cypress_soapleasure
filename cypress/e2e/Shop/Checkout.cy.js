@@ -23,12 +23,12 @@ describe('Checkout Test Suite', () => {
         cy.fixture('loginData.json').then((data) => {
             const email = data.validUser.email;
             const password = data.validUser.password;
-            
+
             CheckoutPage.login(email, password)
-            .clickColdProcessSoap()
-            .buyNow()
-            .checkout()
-            .assertProductAddedToCart();
+                .clickColdProcessSoap()
+                .buyNow()
+                .checkout()
+                .assertProductAddedToCart();
         });
     });
 

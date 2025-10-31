@@ -51,10 +51,8 @@ class RegisterPage {
             .should('be.visible')
             .invoke('text')
             .then((text) => {
-                expect(
-                    text.trim() === Massage.phoneCustom ||
-                    text.trim() === Massage.invalidPhone
-                ).to.be.true;
+                expect(text.trim() === Massage.phoneCustom || text.trim() === Massage.invalidPhone)
+                    .to.be.true;
             });
         cy.get(SELECTORS.passwordError).should('be.visible').and('contain', Massage.shortPassword);
         cy.get(SELECTORS.confirmPasswordError)
