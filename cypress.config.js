@@ -1,25 +1,20 @@
 const { defineConfig } = require('cypress');
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 module.exports = defineConfig({
-    reporter: 'cypress-mochawesome-reporter',
-    reporterOptions: {
-        reportDir: 'cypress/reports/mocha',
-        overwrite: true,
-        html: true,
-        json: true,
-        charts: true,
-        reportPageTitle: 'Soapleasure Tests Report',
-        embeddedScreenshots: true,
-        inlineAssets: true,
-    },
+    video: false,
+    screenshotOnRunFailure: true,
     e2e: {
         setupNodeEvents(on, config) {
-            require('cypress-mochawesome-reporter/plugin')(on);
+            allureWriter(on, config);
             return config;
         },
         baseUrl: 'https://soapleasure.com/',
         pageLoadTimeout: 100000,
-        experimentalStudio: true,
-        watchForFileChanges: false, // Disable file watching to prevent Cypress from automatically re-running tests on file changes
+        watchForFileChanges: false
     },
+    env: {
+        allure: true,
+        allureReuseAfterSpec: true
+    }
 });

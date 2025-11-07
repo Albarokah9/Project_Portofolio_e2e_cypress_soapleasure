@@ -4,3 +4,7 @@ cypress/screenshots/
 cypress/videos/
 tabel selector atribute/
 .vscode/
+
+# Allure
+allure-results/
+allure-report/

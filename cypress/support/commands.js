@@ -25,9 +25,6 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 // cypress/support/commands.js
 
-import './commands';
-import '@shelex/cypress-allure-plugin';
-
 // Perintah kustom untuk pengetikan lambat untuk mensimulasikan input manusia
 Cypress.Commands.add('slowType', (selector, text, options = {}) => {
     const defaultOptions = { delay: 10 }; // Delay pengetikan default
