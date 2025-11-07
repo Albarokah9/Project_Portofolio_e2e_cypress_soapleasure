@@ -26,24 +26,23 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          command: yarn run test:run || npm run test:run
+          command: yarn test:run
 
-      - name: Upload Cypress screenshots (if failed)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+      - name: Generate Allure Report
+        if: always()
+        run: yarn allure:report
 
-      - name: Upload Cypress videos (if failed)
-        if: failure()
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: cypress-videos
-          path: cypress/videos
+          name: allure-report
+          path: allure-report
+          retention-days: 30
 
-      - name: Upload Mochawesome HTML report
-        uses: actions/upload-artifact@v4
-        with:
-          name: mochawesome-report
-          path: cypress/reports/mocha/index.html
+      # Remove or comment out mochawesome report upload
+      # - name: Upload Mochawesome HTML report
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: mochawesome-report
+      #     path: cypress/reports/mocha/index.html
