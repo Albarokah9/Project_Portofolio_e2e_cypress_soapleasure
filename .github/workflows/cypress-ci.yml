@@ -2,9 +2,9 @@ name: Cypress Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, working ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, working ]
 
 jobs:
   cypress-run:
@@ -20,29 +20,29 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: |
-          yarn install --frozen-lockfile || npm ci
+        run: yarn install --frozen-lockfile
+
+      - name: Install allure commandline
+        run: yarn add -D allure-commandline
 
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          command: yarn test:run
+        run: yarn test:run
 
       - name: Generate Allure Report
         if: always()
         run: yarn allure:report
 
       - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: allure-report
+          path: allure-report/
           retention-days: 30
 
-      # Remove or comment out mochawesome report upload
-      # - name: Upload Mochawesome HTML report
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: mochawesome-report
-      #     path: cypress/reports/mocha/index.html
+      - name: Upload Screenshots (if failed)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
