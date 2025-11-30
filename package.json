@@ -23,6 +23,7 @@
         "test:open:firefox": "cypress open --browser firefox",
         "test:open:edge": "cypress open --browser edge",
         "test:open:electron": "cypress open --browser electron",
+        "test-run-headless-chrome": "cypress run --browser chrome --headless",
         "test:smoke": "cypress run --env grepTags=@smoke",
         "test:smoke:report": "yarn clean:reports && yarn prereport && yarn test:smoke && yarn generate:report && yarn open:report",
         "lint": "eslint cypress/**/*.js",

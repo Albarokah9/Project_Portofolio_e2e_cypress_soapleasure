@@ -1,12 +1,26 @@
+import BasePage from './basePage';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../constants/messages';
+import { URLS } from '../constants/urls';
+
+/**
+ * Selectors for Register Page
+ */
 const SELECTORS = {
+    // Navigation
     registerLink: 'Register',
+
+    // Form inputs
     firstNameInput: '#firstName',
     lastNameInput: '#lastName',
     emailInput: '#email',
     phoneInput: '#phone',
     passwordInput: '#password',
     confirmPasswordInput: '#confirmPassword',
+
+    // Buttons
     registerButton: '.button',
+
+    // Feedback elements
     alertMessage: '.alert',
     firstNameError: '.gutter-xs-1 > :nth-child(1) > .form-group > .invalid-feedback',
     lastNameError: '.gutter-xs-1 > :nth-child(2) > .form-group > .invalid-feedback',
@@ -16,171 +30,282 @@ const SELECTORS = {
     confirmPasswordError: ':nth-child(4) > :nth-child(2) > .form-group > .invalid-feedback',
 };
 
-const Massage = {
-    requiredFirstName: 'First name is a required field',
-    requiredLastName: 'Last name is a required field',
-    requiredEmail: 'Email address is a required field',
-    requiredPhone: 'Phone number is a required field',
-    requiredPassword: 'Password is a required field',
-    requiredConfirmPassword: 'Confirm password is a required field',
-    invalidPhone: 'Phone is invalid format',
-    phoneCustom: 'custom.phone',
-    shortPassword: 'Password must be at least 8 characters',
-    passwordMismatch: 'Confirm password must match with password',
-    registrationSuccess:
-        'Thank you for registering, We have sent a confirmation link to ${email}, please check your inbox / spam folder',
-};
-
-class RegisterPage {
+/**
+ * RegisterPage - Handles all registration-related actions
+ * Extends BasePage for common functionality
+ */
+class RegisterPage extends BasePage {
+    /**
+     * Navigate to register page
+     */
     visitRegisterPage() {
-        cy.visit('/');
+        this.visit(URLS.HOME);
         cy.contains('Register').click();
-        //cy.get(SELECTORS.registerLink).click();
-        cy.url().should('include', '/account/register');
+        this.verifyUrl(URLS.REGISTER);
+        return this;
     }
 
-    assertRequiredFieldErrorMessage() {
-        cy.get(SELECTORS.firstNameError)
+    /**
+     * Type first name
+     * @param {string} firstName
+     */
+    typeFirstName(firstName) {
+        this.typeText(SELECTORS.firstNameInput, firstName);
+        return this;
+    }
+
+    /**
+     * Type last name
+     * @param {string} lastName
+     */
+    typeLastName(lastName) {
+        this.typeText(SELECTORS.lastNameInput, lastName);
+        return this;
+    }
+
+    /**
+     * Type email
+     * @param {string} email
+     */
+    typeEmail(email) {
+        this.typeText(SELECTORS.emailInput, email);
+        return this;
+    }
+
+    /**
+     * Type phone number
+     * @param {string} phone
+     */
+    typePhone(phone) {
+        this.typeText(SELECTORS.phoneInput, phone);
+        return this;
+    }
+
+    /**
+     * Type password
+     * @param {string} password
+     */
+    typePassword(password) {
+        this.typeText(SELECTORS.passwordInput, password);
+        return this;
+    }
+
+    /**
+     * Type confirm password
+     * @param {string} confirmPassword
+     */
+    typeConfirmPassword(confirmPassword) {
+        this.typeText(SELECTORS.confirmPasswordInput, confirmPassword);
+        return this;
+    }
+
+    /**
+     * Click register button
+     */
+    clickRegisterButton() {
+        this.clickElement(SELECTORS.registerButton);
+        return this;
+    }
+
+    /**
+     * Complete registration flow
+     * @param {string} firstName
+     * @param {string} lastName
+     * @param {string} email
+     * @param {string} phone
+     * @param {string} password
+     * @param {string} confirmPassword
+     */
+    register(firstName, lastName, email, phone, password, confirmPassword) {
+        if (firstName) this.typeFirstName(firstName);
+        if (lastName) this.typeLastName(lastName);
+        if (email) this.typeEmail(email);
+        if (phone) this.typePhone(phone);
+        if (password) this.typePassword(password);
+        if (confirmPassword) this.typeConfirmPassword(confirmPassword);
+
+        this.clickRegisterButton();
+        return this;
+    }
+
+    // ========================================
+    // GETTERS - Return elements for flexible assertions
+    // ========================================
+
+    /**
+     * Get alert message element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getAlertMessage() {
+        return this.getElement(SELECTORS.alertMessage);
+    }
+
+    /**
+     * Get email input element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getEmailInput() {
+        return this.getElement(SELECTORS.emailInput);
+    }
+
+    /**
+     * Get first name error element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getFirstNameError() {
+        return this.getElement(SELECTORS.firstNameError);
+    }
+
+    /**
+     * Get last name error element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getLastNameError() {
+        return this.getElement(SELECTORS.lastNameError);
+    }
+
+    /**
+     * Get email error element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getEmailError() {
+        return this.getElement(SELECTORS.emailError);
+    }
+
+    /**
+     * Get phone error element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getPhoneError() {
+        return this.getElement(SELECTORS.phoneError);
+    }
+
+    /**
+     * Get password error element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getPasswordError() {
+        return this.getElement(SELECTORS.passwordError);
+    }
+
+    /**
+     * Get confirm password error element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getConfirmPasswordError() {
+        return this.getElement(SELECTORS.confirmPasswordError);
+    }
+
+    // ========================================
+    // VERIFICATION METHODS - Common assertions for reusability
+    // ========================================
+
+    /**
+     * Verify registration success
+     * @param {string} email - Email used for registration
+     */
+    verifyRegistrationSuccess(email) {
+        this.getAlertMessage()
             .should('be.visible')
-            .and('contain', Massage.requiredFirstName);
-        cy.get(SELECTORS.lastNameError)
+            .and('contain', SUCCESS_MESSAGES.REGISTER.CONFIRMATION_EMAIL(email));
+        return this;
+    }
+
+    /**
+     * Verify all required field errors
+     */
+    verifyAllRequiredFieldsError() {
+        this.getFirstNameError()
             .should('be.visible')
-            .and('contain', Massage.requiredLastName);
-        cy.get(SELECTORS.emailError).should('be.visible').and('contain', Massage.requiredEmail);
-        cy.get(SELECTORS.phoneError)
+            .and('contain', ERROR_MESSAGES.REGISTER.REQUIRED_FIRST_NAME);
+
+        this.getLastNameError()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.REGISTER.REQUIRED_LAST_NAME);
+
+        this.getEmailError()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.REGISTER.REQUIRED_EMAIL);
+
+        this.getPhoneError()
             .should('be.visible')
             .invoke('text')
             .then((text) => {
-                expect(text.trim() === Massage.phoneCustom || text.trim() === Massage.invalidPhone)
-                    .to.be.true;
+                expect(
+                    text.trim() === ERROR_MESSAGES.REGISTER.PHONE_CUSTOM ||
+                    text.trim() === ERROR_MESSAGES.REGISTER.INVALID_PHONE
+                ).to.be.true;
             });
-        cy.get(SELECTORS.passwordError).should('be.visible').and('contain', Massage.shortPassword);
-        cy.get(SELECTORS.confirmPasswordError)
+
+        this.getPasswordError()
             .should('be.visible')
-            .and('contain', Massage.requiredConfirmPassword);
-        cy.screenshot('Register Required Field Error Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.REGISTER.SHORT_PASSWORD);
+
+        this.getConfirmPasswordError()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.REGISTER.REQUIRED_CONFIRM_PASSWORD);
+
+        return this;
     }
 
-    assertPhoneErrorMessage() {
-        cy.get(SELECTORS.phoneError)
+    /**
+     * Verify phone error message
+     */
+    verifyPhoneError() {
+        this.getPhoneError()
             .should('be.visible')
             .invoke('text')
             .should('match', /(Phone is invalid format|custom\.phone)/);
-        cy.screenshot('Register Phone Error Page', { capture: 'fullPage' });
+        return this;
     }
 
-    assertRegistrationSuccessMessage(email) {
-        cy.get(SELECTORS.alertMessage)
+    /**
+     * Verify email required error
+     */
+    verifyEmailRequired() {
+        this.getEmailError()
             .should('be.visible')
-            .and(
-                'contain',
-                `Thank you for registering, We have sent a confirmation link to ${email}, please check your inbox / spam folder`
-            );
-        cy.screenshot('Register Success Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.REGISTER.REQUIRED_EMAIL);
+        return this;
     }
 
-    assertEmailErrorMessage() {
-        cy.get(SELECTORS.emailError)
-            .should('be.visible')
-            .and('contain', 'Email address is a required field');
-        cy.screenshot('Register Email Error Page', { capture: 'fullPage' });
-    }
-
-    // assertInvalidEmailFormatErrorMessage(email) {
-    //     cy.get('#email').then(($input) => {
-    //         expect($input[0].validationMessage).to.contain(
-    //             `Please include an '@' in the email address. '${email}' is missing an '@'.`
-    //         );
-    //         cy.screenshot('Register Invalid Email Format Page', { capture: 'fullPage' });
-    //     });
-    // }
-
-    assertInvalidEmailFormatErrorMessage(email) {
-        cy.get('#email').then(($input) => {
-            // Check for presence of error message (flexible)
+    /**
+     * Verify invalid email format error
+     */
+    verifyInvalidEmailFormat() {
+        this.getEmailInput().then(($input) => {
             expect($input[0].validationMessage).to.include('email');
-            // OR check for a custom error message element
-            // cy.get('.error-message').should('contain', 'Invalid email format');
-            cy.screenshot('Register Invalid Email Format Page', { capture: 'fullPage' });
         });
+        return this;
     }
 
-    assertShortPasswordErrorMessage() {
-        cy.get(SELECTORS.passwordError)
+    /**
+     * Verify short password error
+     */
+    verifyShortPassword() {
+        this.getPasswordError()
             .should('be.visible')
-            .and('contain', 'Password must be at least 8 characters');
-        cy.screenshot('Register Short Password Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.REGISTER.SHORT_PASSWORD);
+        return this;
     }
 
-    assertRequiredConfirmPasswordMessage() {
-        cy.get(SELECTORS.confirmPasswordError)
+    /**
+     * Verify password mismatch error
+     */
+    verifyPasswordMismatch() {
+        this.getConfirmPasswordError()
             .should('be.visible')
-            .and('contain', 'Confirm password must match with password');
-        cy.screenshot('Register Required Confirm Password Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.REGISTER.PASSWORD_MISMATCH);
+        return this;
     }
 
-    assertRequiredPasswordMismatchMessage() {
-        cy.get(SELECTORS.confirmPasswordError)
+    /**
+     * Verify confirm password required error
+     */
+    verifyConfirmPasswordRequired() {
+        this.getConfirmPasswordError()
             .should('be.visible')
-            .and('contain', 'Confirm password must match with password');
-        cy.screenshot('Register Password Mismatch Page', { capture: 'fullPage' });
-    }
-
-    typeFirstName(firstName) {
-        if (firstName) {
-            cy.slowType(SELECTORS.firstNameInput, firstName);
-        }
-        return this;
-    }
-
-    typeLastName(lastName) {
-        if (lastName) {
-            cy.slowType(SELECTORS.lastNameInput, lastName);
-        }
-        return this;
-    }
-
-    typeEmail(email) {
-        if (email) {
-            cy.slowType(SELECTORS.emailInput, email);
-        }
-        return this;
-    }
-
-    typePhone(phone) {
-        if (phone) {
-            cy.slowType(SELECTORS.phoneInput, phone);
-        }
-        return this;
-    }
-
-    typePassword(password) {
-        if (password) {
-            cy.slowType(SELECTORS.passwordInput, password);
-        }
-        return this;
-    }
-
-    typeConfirmPassword(confirmPassword) {
-        if (confirmPassword) {
-            cy.slowType(SELECTORS.confirmPasswordInput, confirmPassword);
-        }
-        return this;
-    }
-
-    clickRegisterButton() {
-        cy.get(SELECTORS.registerButton).click();
-        return this;
-    }
-
-    register(firstName, lastName, email, phone, password, confirmPassword) {
-        this.typeFirstName(firstName)
-            .typeLastName(lastName)
-            .typeEmail(email)
-            .typePhone(phone)
-            .typePassword(password)
-            .typeConfirmPassword(confirmPassword)
-            .clickRegisterButton();
+            .and('contain', ERROR_MESSAGES.REGISTER.PASSWORD_MISMATCH);
         return this;
     }
 }

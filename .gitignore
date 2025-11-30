@@ -8,3 +8,7 @@ tabel selector atribute/
 # Allure
 allure-results/
 allure-report/
+
+# Documentation
+docs/
+test-output.log

@@ -1,95 +1,208 @@
+import BasePage from './basePage';
+import { ERROR_MESSAGES } from '../constants/messages';
+import { URLS } from '../constants/urls';
+
+/**
+ * Selectors for Login Page
+ * Note: Ideally use data-cy attributes in the application
+ * Current selectors are based on existing HTML structure
+ */
 const SELECTORS = {
+    // Navigation
     loginLink: '.d-inline-flex > [href="/account/login"] > u',
+
+    // Form inputs
     emailInput: '#input-email',
     passwordInput: '#input-password',
+
+    // Buttons
     loginButton: '.btn',
-    dropdown: '.dropdown',
+
+    // Feedback elements
+    userDropdown: '.dropdown',
     alertMessage: '.alert',
     invalidFeedback: '.invalid-feedback',
 };
-class LoginPage {
-    visitHome() {
-        cy.visit('/');
-        cy.get(SELECTORS.loginLink).click();
-        cy.url().should('include', '/account/login');
+
+/**
+ * LoginPage - Handles all login-related actions
+ * Extends BasePage for common functionality
+ */
+class LoginPage extends BasePage {
+    /**
+     * Navigate to login page from home
+     */
+    visitLoginPage() {
+        this.visit(URLS.HOME);
+        this.clickElement(SELECTORS.loginLink);
+        this.verifyUrl(URLS.LOGIN);
+        return this;
     }
 
-    // Hanya akan mengetik email jika nilainya tidak kosong
-    // Mencegah error Cypress saat data kosong ("")
-    // Memungkinkan pemanggilan method lain setelahnya (chaining)
+    /**
+     * Type email into email input field
+     * @param {string} email - Email address
+     */
     typeEmail(email) {
-        if (email) {
-            cy.slowType(SELECTORS.emailInput, email);
-        }
+        this.typeText(SELECTORS.emailInput, email);
         return this;
     }
 
-    // Hanya akan mengetik password jika nilainya tidak kosong
-    // Mencegah error Cypress saat data kosong ("")
-    // Memungkinkan pemanggilan method lain setelahnya (chaining)
+    /**
+     * Type password into password input field
+     * @param {string} password - Password
+     */
     typePassword(password) {
+        this.typeText(SELECTORS.passwordInput, password);
+        return this;
+    }
+
+    /**
+     * Press Enter key on password field
+     * @param {string} password - Password to type before pressing Enter
+     */
+    pressEnterOnPassword(password) {
         if (password) {
-            cy.slowType(SELECTORS.passwordInput, password);
+            cy.get(SELECTORS.passwordInput).type(`${password}{enter}`);
+        } else {
+            cy.get(SELECTORS.passwordInput).type('{enter}');
         }
         return this;
     }
 
-    // navigateToLoginPage() {
-    //   cy.visit('/');
-    //   cy.get(SELECTORS.loginLink).click(); // Gunakan selector dari data
-    //   cy.url().should('include', '/account/login');
-    // }
-
-    pressEnterOnPassword(password) {
-        cy.get(SELECTORS.passwordInput).type(`${password}{enter}`);
+    /**
+     * Click login button
+     */
+    clickLoginButton() {
+        this.clickElement(SELECTORS.loginButton);
         return this;
     }
 
-    clickLogin() {
-        cy.get(SELECTORS.loginButton).click();
-        return this;
-    }
-
-    assertUserIsLoggedIn() {
-        cy.get(SELECTORS.dropdown, { timeout: 10000 }).should('be.visible');
-        cy.screenshot('Login Success', { capture: 'fullPage' });
-    }
-
-    assertInvalidCredentialsMessage() {
-        cy.get(SELECTORS.alertMessage).should('contain', 'Invalid email address or password');
-        cy.screenshot('Login Failed with Invalid Credentials', { capture: 'fullPage' });
-    }
-
-    asserInvalidEmailFormatMessage() {
-        cy.get(SELECTORS.invalidFeedback).should('contain', 'Please enter a valid email address');
-        cy.screenshot('Login Failed with Invalid Email Format', { capture: 'fullPage' });
-    }
-
-    assertRequiredEmailMessage() {
-        cy.get(SELECTORS.invalidFeedback).should('contain', 'Email address is required');
-        cy.screenshot('Login Failed with Required Email', { capture: 'fullPage' });
-    }
-
-    assertRequiredPasswordMessage() {
-        cy.get(SELECTORS.invalidFeedback).should('contain', 'Please enter your password');
-        cy.screenshot('Login Failed with Required Password', { capture: 'fullPage' });
-    }
-
-    assertBothFieldsRequiredMessage() {
-        cy.get(SELECTORS.invalidFeedback).eq(0).should('contain', 'Email address is required');
-        cy.get(SELECTORS.invalidFeedback).eq(1).should('contain', 'Please enter your password');
-        cy.screenshot('Login Failed with Both Fields Required', { capture: 'fullPage' });
-    }
-
-    assertPasswordMasked() {
-        cy.get(SELECTORS.passwordInput).should('have.attr', 'type', 'password');
-        cy.screenshot('Login with Password Masked', { capture: 'fullPage' });
-    }
-
+    /**
+     * Complete login flow
+     * @param {string} email - Email address
+     * @param {string} password - Password
+     */
     login(email, password) {
-        this.typeEmail(email);
-        this.typePassword(password);
-        this.clickLogin();
+        if (email) this.typeEmail(email);
+        if (password) this.typePassword(password);
+        this.clickLoginButton();
+        return this;
+    }
+
+    /**
+     * Login using Enter key
+     * @param {string} email - Email address
+     * @param {string} password - Password
+     */
+    loginWithEnter(email, password) {
+        if (email) this.typeEmail(email);
+        this.pressEnterOnPassword(password);
+        return this;
+    }
+
+    // ========================================
+    // GETTERS - Return elements for flexible assertions
+    // ========================================
+
+    /**
+     * Get user dropdown element (visible when logged in)
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getUserDropdown() {
+        return this.getElement(SELECTORS.userDropdown, { timeout: 10000 });
+    }
+
+    /**
+     * Get alert message element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getAlertMessage() {
+        return this.getElement(SELECTORS.alertMessage);
+    }
+
+    /**
+     * Get invalid feedback element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getInvalidFeedback() {
+        return this.getElement(SELECTORS.invalidFeedback);
+    }
+
+    /**
+     * Get password input element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getPasswordInput() {
+        return this.getElement(SELECTORS.passwordInput);
+    }
+
+    // ========================================
+    // VERIFICATION METHODS - Common assertions for reusability
+    // ========================================
+
+    /**
+     * Verify user is successfully logged in
+     */
+    verifyLoginSuccess() {
+        this.getUserDropdown().should('be.visible');
+        return this;
+    }
+
+    /**
+     * Verify invalid credentials error message
+     */
+    verifyInvalidCredentials() {
+        this.getAlertMessage()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.LOGIN.INVALID_CREDENTIALS);
+        return this;
+    }
+
+    /**
+     * Verify invalid email format error
+     */
+    verifyInvalidEmailFormat() {
+        this.getInvalidFeedback()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.LOGIN.INVALID_EMAIL_FORMAT);
+        return this;
+    }
+
+    /**
+     * Verify required email error
+     */
+    verifyRequiredEmail() {
+        this.getInvalidFeedback()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.LOGIN.REQUIRED_EMAIL);
+        return this;
+    }
+
+    /**
+     * Verify required password error
+     */
+    verifyRequiredPassword() {
+        this.getInvalidFeedback()
+            .should('be.visible')
+            .and('contain', ERROR_MESSAGES.LOGIN.REQUIRED_PASSWORD);
+        return this;
+    }
+
+    /**
+     * Verify both fields are required
+     */
+    verifyBothFieldsRequired() {
+        this.getInvalidFeedback().eq(0).should('contain', ERROR_MESSAGES.LOGIN.REQUIRED_EMAIL);
+        this.getInvalidFeedback().eq(1).should('contain', ERROR_MESSAGES.LOGIN.REQUIRED_PASSWORD);
+        return this;
+    }
+
+    /**
+     * Verify password field is masked
+     */
+    verifyPasswordMasked() {
+        this.getPasswordInput().should('have.attr', 'type', 'password');
         return this;
     }
 }
