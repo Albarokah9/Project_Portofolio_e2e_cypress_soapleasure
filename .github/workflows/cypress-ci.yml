@@ -26,11 +26,11 @@ jobs:
         run: yarn add -D allure-commandline
 
       - name: Run Cypress tests
-        run: yarn test:run
+        run: yarn cy:run
 
       - name: Generate Allure Report
         if: always()
-        run: yarn allure:report
+        run: yarn allure:generate
 
       - name: Upload Allure Report
         if: always()
