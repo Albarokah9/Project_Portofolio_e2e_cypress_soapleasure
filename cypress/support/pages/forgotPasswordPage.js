@@ -1,82 +1,151 @@
+import BasePage from './basePage';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../constants/messages';
+import { URLS } from '../constants/urls';
+
+/**
+ * Selectors for Forgot Password Page
+ */
 const SELECTORS = {
+    // Navigation
     loginLink: '.d-inline-flex > [href="/account/login"] > u',
     forgotPasswordLink: '.d-flex > a > u',
+
+    // Form inputs
     emailInput: '.form-control',
+
+    // Buttons
     submitButton: '.btn',
+
+    // Feedback elements
     instructionText: '.col-md-6 > .text-muted',
     successMessage: '.mb-3',
     toastMessage: '.react-toast-notifications__toast__content',
     invalidFeedback: '.invalid-feedback',
 };
 
-class ForgotPasswordPage {
-    visitHome() {
-        cy.visit('/');
+/**
+ * ForgotPasswordPage - Handles forgot password functionality
+ * Extends BasePage for common functionality
+ */
+class ForgotPasswordPage extends BasePage {
+    /**
+     * Navigate to forgot password page
+     */
+    visitForgotPasswordPage() {
+        this.visit(URLS.HOME);
+        this.clickElement(SELECTORS.loginLink);
+        this.clickElement(SELECTORS.forgotPasswordLink);
+        this.verifyUrl(URLS.FORGOT_PASSWORD);
         return this;
     }
 
-    clickLoginLink() {
-        cy.get(SELECTORS.loginLink).click();
-        return this;
-    }
-
-    clickForgotPasswordLink() {
-        cy.get(SELECTORS.forgotPasswordLink).click();
-        return this;
-    }
-
+    /**
+     * Verify instruction text is displayed
+     */
     verifyInstructionText() {
-        cy.get(SELECTORS.instructionText)
+        this.getElement(SELECTORS.instructionText)
             .should('be.visible')
-            .and(
-                'contain',
-                'Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.'
-            );
+            .and('contain', SUCCESS_MESSAGES.FORGOT_PASSWORD.INSTRUCTION);
         return this;
     }
 
+    /**
+     * Type email into email input field
+     * @param {string} email - Email address
+     */
     typeEmail(email) {
-        cy.slowType(SELECTORS.emailInput, email);
+        this.typeText(SELECTORS.emailInput, email);
         return this;
     }
 
+    /**
+     * Click submit button
+     */
     clickSubmitButton() {
-        cy.get(SELECTORS.submitButton).click();
+        this.clickElement(SELECTORS.submitButton);
         return this;
     }
 
+    /**
+     * Complete forgot password flow
+     * @param {string} email - Email address
+     */
+    submitForgotPassword(email) {
+        this.typeEmail(email);
+        this.clickSubmitButton();
+        return this;
+    }
+
+    // ========================================
+    // GETTERS - Return elements for flexible assertions
+    // ========================================
+
+    /**
+     * Get success message element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getSuccessMessage() {
+        return this.getElement(SELECTORS.successMessage);
+    }
+
+    /**
+     * Get toast message element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getToastMessage() {
+        return this.getElement(SELECTORS.toastMessage);
+    }
+
+    /**
+     * Get invalid feedback element
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getInvalidFeedback() {
+        return this.getElement(SELECTORS.invalidFeedback);
+    }
+
+    // ========================================
+    // VERIFICATION METHODS - Common assertions for reusability
+    // ========================================
+
+    /**
+     * Verify success message is displayed
+     */
     verifySuccessMessage() {
-        cy.get(SELECTORS.successMessage)
+        this.getSuccessMessage()
             .should('be.visible')
-            .and(
-                'contain',
-                'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.'
-            );
-        cy.screenshot('Forgot Password Success Page', { capture: 'fullPage' });
+            .and('contain', 'Check your email for a link to reset your password');
         return this;
     }
 
-    verifyEmailNotFoundMessage(email) {
-        cy.get(SELECTORS.toastMessage)
+    /**
+     * Verify email not found message
+     * @param {string} email - Email that was not found
+     */
+    verifyEmailNotFound(email) {
+        this.getToastMessage()
             .should('be.visible')
-            .and('contain', `Email: ${email} not found!`);
-        cy.screenshot('Forgot Password verify Email Not Found Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.FORGOT_PASSWORD.EMAIL_NOT_FOUND(email));
         return this;
     }
 
-    verifyInvalidEmailFormatMessage() {
-        cy.get(SELECTORS.invalidFeedback)
+    /**
+     * Verify invalid email format error
+     */
+    verifyInvalidEmailFormat() {
+        this.getInvalidFeedback()
             .should('be.visible')
-            .and('contain', 'Email address must be a valid email');
-        cy.screenshot('Forgot Password Invalid Email Format Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.FORGOT_PASSWORD.INVALID_EMAIL_FORMAT);
         return this;
     }
 
-    verifyRequiredEmailMessage() {
-        cy.get(SELECTORS.invalidFeedback)
+    /**
+     * Verify required email error
+     */
+    verifyRequiredEmail() {
+        this.getInvalidFeedback()
             .should('be.visible')
-            .and('contain', 'Email address is a required field');
-        cy.screenshot('Forgot Password Required Email Page', { capture: 'fullPage' });
+            .and('contain', ERROR_MESSAGES.FORGOT_PASSWORD.REQUIRED_EMAIL);
         return this;
     }
 }

@@ -1,64 +1,54 @@
 /// <reference types="cypress" />
-import forgotPasswordPage from '../../support/pages/forgotPasswordPage';
+import ForgotPasswordPage from '../../support/pages/forgotPasswordPage';
 
-describe('Forgot Password Test Suite', function () {
-    beforeEach(function () {
-        cy.fixture('forgotPasswordData').as('userData');
-        forgotPasswordPage.visitHome();
-    });
+describe('Forgot Password Test Suite', () => {
+    let testData;
 
-    it('TC_FORGOTPWD_01 - Verifikasi fungsionalitas "Forgot Password" berhasil ketika menggunakan alamat email yang valid dan sudah terdaftar di sistem', () => {
-        cy.get('@userData').then((userData) => {
-            const registeredEmail = userData.registeredEmail;
-
-            forgotPasswordPage
-                .clickLoginLink()
-                .clickForgotPasswordLink()
-                .verifyInstructionText()
-                .typeEmail(registeredEmail)
-                .clickSubmitButton()
-                .verifySuccessMessage();
+    beforeEach(() => {
+        cy.fixture('forgotPasswordData').then((data) => {
+            testData = data;
         });
-    });
 
-    it('TC_FORGOTPWD_02 - Verifikasi respons sistem ketika pengguna mencoba mereset password menggunakan alamat email yang tidak terdaftar', () => {
-        cy.get('@userData').then((userData) => {
-            const unregisteredEmail = userData.unregisteredEmail;
-
-            forgotPasswordPage
-                .clickLoginLink()
-                .clickForgotPasswordLink()
-                .verifyInstructionText()
-                .typeEmail(unregisteredEmail)
-                .clickSubmitButton()
-                .verifyEmailNotFoundMessage(unregisteredEmail);
-        });
-    });
-
-    it('TC_FORGOTPWD_03 - Verifikasi pesan error validasi ketika pengguna memasukkan alamat email dengan format yang salah pada halaman "Forgot Password', () => {
-        cy.get('@userData').then((userData) => {
-            const invalidEmail = userData.invalidEmail;
-
-            forgotPasswordPage
-                .clickLoginLink()
-                .clickForgotPasswordLink()
-                .verifyInstructionText()
-                .typeEmail(invalidEmail)
-                .clickSubmitButton()
-                .verifyInvalidEmailFormatMessage();
-        });
-    });
-
-    it('TC_FORGOTPWD_04 - Verifikasi pesan error validasi ketika pengguna mencoba melanjutkan proses "Forgot Password" tanpa mengisi field email', () => {
-        forgotPasswordPage
-            .clickLoginLink()
-            .clickForgotPasswordLink()
-            .verifyInstructionText()
-            .clickSubmitButton()
-            .verifyRequiredEmailMessage();
+        ForgotPasswordPage.visitForgotPasswordPage();
     });
 
     afterEach(() => {
         cy.clearCookies();
+    });
+
+    it('TC_FORGOTPWD_01 - Verifikasi fungsionalitas "Forgot Password" berhasil ketika menggunakan alamat email yang valid dan sudah terdaftar di sistem', () => {
+        const registeredEmail = testData.registeredEmail;
+
+        ForgotPasswordPage.verifyInstructionText()
+            .submitForgotPassword(registeredEmail)
+            .verifySuccessMessage();
+
+        cy.screenshot('TC_FORGOTPWD_01-success', { capture: 'fullPage' });
+    });
+
+    it('TC_FORGOTPWD_02 - Verifikasi respons sistem ketika pengguna mencoba mereset password menggunakan alamat email yang tidak terdaftar', () => {
+        const unregisteredEmail = testData.unregisteredEmail;
+
+        ForgotPasswordPage.verifyInstructionText()
+            .submitForgotPassword(unregisteredEmail)
+            .verifyEmailNotFound(unregisteredEmail);
+
+        cy.screenshot('TC_FORGOTPWD_02-email-not-found', { capture: 'fullPage' });
+    });
+
+    it('TC_FORGOTPWD_03 - Verifikasi pesan error validasi ketika pengguna memasukkan alamat email dengan format yang salah pada halaman "Forgot Password"', () => {
+        const invalidEmail = testData.invalidEmail;
+
+        ForgotPasswordPage.verifyInstructionText()
+            .submitForgotPassword(invalidEmail)
+            .verifyInvalidEmailFormat();
+
+        cy.screenshot('TC_FORGOTPWD_03-invalid-format', { capture: 'fullPage' });
+    });
+
+    it('TC_FORGOTPWD_04 - Verifikasi pesan error validasi ketika pengguna mencoba melanjutkan proses "Forgot Password" tanpa mengisi field email', () => {
+        ForgotPasswordPage.verifyInstructionText().clickSubmitButton().verifyRequiredEmail();
+
+        cy.screenshot('TC_FORGOTPWD_04-empty-email', { capture: 'fullPage' });
     });
 });

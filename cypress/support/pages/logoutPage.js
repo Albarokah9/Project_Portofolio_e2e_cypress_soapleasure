@@ -1,42 +1,70 @@
+import BasePage from './basePage';
+import { URLS } from '../constants/urls';
+
+/**
+ * Selectors for Logout Page
+ */
 const SELECTORS = {
-    emailInput: '#input-email',
-    passwordInput: '#input-password',
-    loginButton: '.btn',
-    dropdown: '.dropdown',
-    dropdownMenu: '.dropdown-menu',
-    logoutButton: '.dropdown-menu > :nth-child(5)',
+    // Navigation
+    userDropdown: '.dropdown',
+    logoutLink: '[href="/account/logout"]',
+
+    // Confirmation
     loginLink: '.d-inline-flex > [href="/account/login"] > u',
 };
 
-class LogoutPage {
-    visitHomePage() {
-        cy.visit('/');
-        cy.get(SELECTORS.loginLink).click();
+/**
+ * LogoutPage - Handles logout functionality
+ * Extends BasePage for common functionality
+ */
+class LogoutPage extends BasePage {
+    /**
+     * Click user dropdown to reveal logout option
+     */
+    clickUserDropdown() {
+        this.clickElement(SELECTORS.userDropdown);
         return this;
     }
 
-    login(email, password) {
-        cy.get(SELECTORS.emailInput).type(email);
-        cy.get(SELECTORS.passwordInput).type(password);
-        cy.get(SELECTORS.loginButton).click();
+    /**
+     * Click logout link
+     */
+    clickLogoutLink() {
+        this.clickElement(SELECTORS.logoutLink);
         return this;
     }
 
+    /**
+     * Complete logout flow
+     */
     logout() {
-        cy.get(SELECTORS.dropdown).click();
-        cy.get(SELECTORS.dropdownMenu, { timeout: 10000 }).should('be.visible');
-        cy.get(SELECTORS.logoutButton).click();
+        this.clickUserDropdown();
+        this.clickLogoutLink();
         return this;
     }
 
-    assertUserIsLoggedIn() {
-        cy.get(SELECTORS.dropdown).should('be.visible');
-        return this;
+    // ========================================
+    // GETTERS - Return elements for flexible assertions
+    // ========================================
+
+    /**
+     * Get login link element (visible after logout)
+     * @returns {Cypress.Chainable} Cypress element
+     */
+    getLoginLink() {
+        return this.getElement(SELECTORS.loginLink);
     }
 
-    assertUserLogout() {
-        cy.url().should('eq', 'https://soapleasure.com/');
-        cy.screenshot('Logout Success', { capture: 'fullPage' });
+    // ========================================
+    // VERIFICATION METHODS - Common assertions for reusability
+    // ========================================
+
+    /**
+     * Verify user is logged out successfully
+     */
+    verifyLogoutSuccess() {
+        this.getLoginLink().should('be.visible');
+        this.verifyUrl(URLS.HOME);
         return this;
     }
 }
