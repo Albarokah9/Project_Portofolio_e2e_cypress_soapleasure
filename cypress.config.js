@@ -10,8 +10,12 @@ module.exports = defineConfig({
             return config;
         },
         baseUrl: 'https://soapleasure.com/',
-        pageLoadTimeout: 100000,
-        watchForFileChanges: false
+        pageLoadTimeout: 60000,
+        watchForFileChanges: false,
+        retries: {
+            runMode: 1,
+            openMode: 0
+        }
     },
     env: {
         allure: true,

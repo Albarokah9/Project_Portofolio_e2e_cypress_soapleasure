@@ -3,13 +3,13 @@ import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../constants/messages';
 import { URLS } from '../constants/urls';
 
 /**
- * Selectors for Register Page
+ * Selectors untuk Halaman Register
  */
 const SELECTORS = {
-    // Navigation
+    // Navigasi
     registerLink: 'Register',
 
-    // Form inputs
+    // Input form
     firstNameInput: '#firstName',
     lastNameInput: '#lastName',
     emailInput: '#email',
@@ -17,10 +17,10 @@ const SELECTORS = {
     passwordInput: '#password',
     confirmPasswordInput: '#confirmPassword',
 
-    // Buttons
+    // Tombol
     registerButton: '.button',
 
-    // Feedback elements
+    // Elemen feedback
     alertMessage: '.alert',
     firstNameError: '.gutter-xs-1 > :nth-child(1) > .form-group > .invalid-feedback',
     lastNameError: '.gutter-xs-1 > :nth-child(2) > .form-group > .invalid-feedback',
@@ -31,12 +31,12 @@ const SELECTORS = {
 };
 
 /**
- * RegisterPage - Handles all registration-related actions
- * Extends BasePage for common functionality
+ * RegisterPage - Menangani semua aksi terkait registrasi
+ * Extends BasePage untuk fungsionalitas umum
  */
 class RegisterPage extends BasePage {
     /**
-     * Navigate to register page
+     * Navigasi ke halaman register
      */
     visitRegisterPage() {
         this.visit(URLS.HOME);
@@ -46,7 +46,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Type first name
+     * Ketik nama depan
      * @param {string} firstName
      */
     typeFirstName(firstName) {
@@ -55,7 +55,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Type last name
+     * Ketik nama belakang
      * @param {string} lastName
      */
     typeLastName(lastName) {
@@ -64,7 +64,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Type email
+     * Ketik email
      * @param {string} email
      */
     typeEmail(email) {
@@ -73,7 +73,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Type phone number
+     * Ketik nomor telepon
      * @param {string} phone
      */
     typePhone(phone) {
@@ -82,7 +82,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Type password
+     * Ketik password
      * @param {string} password
      */
     typePassword(password) {
@@ -91,7 +91,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Type confirm password
+     * Ketik konfirmasi password
      * @param {string} confirmPassword
      */
     typeConfirmPassword(confirmPassword) {
@@ -100,7 +100,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Click register button
+     * Klik tombol register
      */
     clickRegisterButton() {
         this.clickElement(SELECTORS.registerButton);
@@ -108,7 +108,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Complete registration flow
+     * Proses registrasi lengkap
      * @param {string} firstName
      * @param {string} lastName
      * @param {string} email
@@ -129,80 +129,80 @@ class RegisterPage extends BasePage {
     }
 
     // ========================================
-    // GETTERS - Return elements for flexible assertions
+    // GETTERS - Mengembalikan elemen untuk assertions yang fleksibel
     // ========================================
 
     /**
-     * Get alert message element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen alert message
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getAlertMessage() {
         return this.getElement(SELECTORS.alertMessage);
     }
 
     /**
-     * Get email input element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen email input
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getEmailInput() {
         return this.getElement(SELECTORS.emailInput);
     }
 
     /**
-     * Get first name error element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen error nama depan
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getFirstNameError() {
         return this.getElement(SELECTORS.firstNameError);
     }
 
     /**
-     * Get last name error element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen error nama belakang
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getLastNameError() {
         return this.getElement(SELECTORS.lastNameError);
     }
 
     /**
-     * Get email error element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen error email
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getEmailError() {
         return this.getElement(SELECTORS.emailError);
     }
 
     /**
-     * Get phone error element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen error telepon
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getPhoneError() {
         return this.getElement(SELECTORS.phoneError);
     }
 
     /**
-     * Get password error element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen error password
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getPasswordError() {
         return this.getElement(SELECTORS.passwordError);
     }
 
     /**
-     * Get confirm password error element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen error konfirmasi password
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getConfirmPasswordError() {
         return this.getElement(SELECTORS.confirmPasswordError);
     }
 
     // ========================================
-    // VERIFICATION METHODS - Common assertions for reusability
+    // METODE VERIFIKASI - Assertions umum untuk reusability
     // ========================================
 
     /**
-     * Verify registration success
-     * @param {string} email - Email used for registration
+     * Verifikasi registrasi berhasil
+     * @param {string} email - Email yang digunakan untuk registrasi
      */
     verifyRegistrationSuccess(email) {
         this.getAlertMessage()
@@ -212,7 +212,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify all required field errors
+     * Verifikasi semua error field yang required
      */
     verifyAllRequiredFieldsError() {
         this.getFirstNameError()
@@ -249,7 +249,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify phone error message
+     * Verifikasi error message telepon
      */
     verifyPhoneError() {
         this.getPhoneError()
@@ -260,7 +260,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify email required error
+     * Verifikasi error email required
      */
     verifyEmailRequired() {
         this.getEmailError()
@@ -270,7 +270,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify invalid email format error
+     * Verifikasi error format email tidak valid
      */
     verifyInvalidEmailFormat() {
         this.getEmailInput().then(($input) => {
@@ -280,7 +280,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify short password error
+     * Verifikasi error password terlalu pendek
      */
     verifyShortPassword() {
         this.getPasswordError()
@@ -290,7 +290,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify password mismatch error
+     * Verifikasi error password tidak cocok
      */
     verifyPasswordMismatch() {
         this.getConfirmPasswordError()
@@ -300,7 +300,7 @@ class RegisterPage extends BasePage {
     }
 
     /**
-     * Verify confirm password required error
+     * Verifikasi error konfirmasi password required
      */
     verifyConfirmPasswordRequired() {
         this.getConfirmPasswordError()

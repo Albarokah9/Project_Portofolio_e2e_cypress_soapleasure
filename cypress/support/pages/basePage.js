@@ -4,8 +4,8 @@
  */
 class BasePage {
     /**
-     * Navigate to a specific path
-     * @param {string} path - URL path to visit
+     * Navigasi ke path tertentu
+     * @param {string} path - URL path yang akan dikunjungi
      */
     visit(path = '/') {
         cy.visit(path);
@@ -13,8 +13,8 @@ class BasePage {
     }
 
     /**
-     * Verify current URL contains expected path
-     * @param {string} expectedPath - Expected URL path
+     * Verifikasi URL saat ini mengandung path yang diharapkan
+     * @param {string} expectedPath - Path URL yang diharapkan
      */
     verifyUrl(expectedPath) {
         cy.url().should('include', expectedPath);
@@ -22,8 +22,8 @@ class BasePage {
     }
 
     /**
-     * Click an element
-     * @param {string} selector - CSS selector or data-cy attribute
+     * Klik sebuah elemen
+     * @param {string} selector - CSS selector atau atribut data-cy
      */
     clickElement(selector) {
         cy.get(selector).click();
@@ -31,9 +31,9 @@ class BasePage {
     }
 
     /**
-     * Type text into an input field with slow typing
+     * Ketik teks ke dalam input field dengan pengetikan lambat
      * @param {string} selector - CSS selector
-     * @param {string} text - Text to type
+     * @param {string} text - Teks yang akan diketik
      */
     typeText(selector, text) {
         if (text) {
@@ -43,17 +43,17 @@ class BasePage {
     }
 
     /**
-     * Get an element with optional timeout
+     * Dapatkan elemen dengan timeout opsional
      * @param {string} selector - CSS selector
-     * @param {object} options - Cypress options (timeout, etc.)
+     * @param {object} options - Opsi Cypress (timeout, dll.)
      */
     getElement(selector, options = {}) {
         return cy.get(selector, options);
     }
 
     /**
-     * Take a screenshot
-     * @param {string} name - Screenshot name
+     * Ambil screenshot
+     * @param {string} name - Nama screenshot
      */
     takeScreenshot(name) {
         cy.screenshot(name, { capture: 'fullPage' });
@@ -61,9 +61,9 @@ class BasePage {
     }
 
     /**
-     * Wait for element to be visible
+     * Tunggu elemen hingga terlihat
      * @param {string} selector - CSS selector
-     * @param {number} timeout - Timeout in milliseconds
+     * @param {number} timeout - Timeout dalam milidetik
      */
     waitForElement(selector, timeout = 10000) {
         cy.get(selector, { timeout }).should('be.visible');
@@ -71,7 +71,7 @@ class BasePage {
     }
 
     /**
-     * Clear input field
+     * Bersihkan input field
      * @param {string} selector - CSS selector
      */
     clearInput(selector) {
@@ -80,7 +80,7 @@ class BasePage {
     }
 
     /**
-     * Check if element exists
+     * Cek apakah elemen ada
      * @param {string} selector - CSS selector
      */
     elementExists(selector) {
@@ -88,7 +88,7 @@ class BasePage {
     }
 
     /**
-     * Check if element is visible
+     * Cek apakah elemen terlihat
      * @param {string} selector - CSS selector
      */
     elementIsVisible(selector) {
