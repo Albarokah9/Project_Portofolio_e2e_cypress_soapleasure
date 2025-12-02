@@ -1,12 +1,12 @@
 /**
- * Utility class for generating test data
+ * Utility class untuk menghasilkan data test
  */
 
 export class DataGenerator {
     /**
-     * Generate unique email address
-     * @param {string} domain - Email domain (default: mailinator.com)
-     * @returns {string} Unique email address
+     * Hasilkan alamat email unik
+     * @param {string} domain - Domain email (default: mailinator.com)
+     * @returns {string} Alamat email unik
      */
     static generateUniqueEmail(domain = 'mailinator.com') {
         const timestamp = Date.now();
@@ -15,8 +15,8 @@ export class DataGenerator {
     }
 
     /**
-     * Generate random Indonesian phone number
-     * @returns {string} Random phone number
+     * Hasilkan nomor telepon Indonesia acak
+     * @returns {string} Nomor telepon acak
      */
     static generateRandomPhone() {
         const prefix = '08';
@@ -27,9 +27,9 @@ export class DataGenerator {
     }
 
     /**
-     * Generate random string
-     * @param {number} length - Length of string
-     * @returns {string} Random string
+     * Hasilkan string acak
+     * @param {number} length - Panjang string
+     * @returns {string} String acak
      */
     static generateRandomString(length = 10) {
         return Math.random()
@@ -38,9 +38,9 @@ export class DataGenerator {
     }
 
     /**
-     * Generate secure password
-     * @param {number} length - Password length (minimum 8)
-     * @returns {string} Generated password
+     * Hasilkan password aman
+     * @param {number} length - Panjang password (minimum 8)
+     * @returns {string} Password yang dihasilkan
      */
     static generatePassword(length = 12) {
         if (length < 8) {
@@ -55,18 +55,18 @@ export class DataGenerator {
 
         let password = '';
 
-        // Ensure at least one of each type
+        // Pastikan setidaknya satu dari setiap tipe karakter
         password += uppercase.charAt(Math.floor(Math.random() * uppercase.length));
         password += lowercase.charAt(Math.floor(Math.random() * lowercase.length));
         password += numbers.charAt(Math.floor(Math.random() * numbers.length));
         password += special.charAt(Math.floor(Math.random() * special.length));
 
-        // Fill the rest randomly
+        // Isi sisanya secara acak
         for (let i = password.length; i < length; i++) {
             password += allChars.charAt(Math.floor(Math.random() * allChars.length));
         }
 
-        // Shuffle the password
+        // Acak urutan password
         return password
             .split('')
             .sort(() => Math.random() - 0.5)
@@ -74,8 +74,8 @@ export class DataGenerator {
     }
 
     /**
-     * Generate random first name
-     * @returns {string} Random first name
+     * Hasilkan nama depan acak
+     * @returns {string} Nama depan acak
      */
     static generateFirstName() {
         const names = ['John', 'Jane', 'Michael', 'Sarah', 'David', 'Emily', 'Robert', 'Lisa'];
@@ -83,8 +83,8 @@ export class DataGenerator {
     }
 
     /**
-     * Generate random last name
-     * @returns {string} Random last name
+     * Hasilkan nama belakang acak
+     * @returns {string} Nama belakang acak
      */
     static generateLastName() {
         const names = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis'];

@@ -2,27 +2,27 @@ import BasePage from './basePage';
 import { URLS } from '../constants/urls';
 
 /**
- * Selectors for Product Page
+ * Selectors untuk Halaman Produk
  */
 const SELECTORS = {
     // Search
     searchInput: 'input',
 
-    // Product elements
+    // Elemen produk
     productName: '.name > a',
 
-    // Category navigation
+    // Navigasi kategori
     coldProcess: ':nth-child(1) > .category-menu',
     menuDropdown: 'div.menu-dropdown--wrapper',
 };
 
 /**
- * ProductPage - Handles product browsing and search functionality
- * Extends BasePage for common functionality
+ * ProductPage - Menangani fungsionalitas browsing dan pencarian produk
+ * Extends BasePage untuk fungsionalitas umum
  */
 class ProductPage extends BasePage {
     /**
-     * Navigate to home page
+     * Navigasi ke halaman home
      */
     visitHomePage() {
         this.visit(URLS.HOME);
@@ -30,8 +30,8 @@ class ProductPage extends BasePage {
     }
 
     /**
-     * Search for a product
-     * @param {string} productName - Name of product to search
+     * Cari produk
+     * @param {string} productName - Nama produk yang akan dicari
      */
     searchProduct(productName) {
         cy.get(SELECTORS.searchInput).type(`${productName}{enter}`);
@@ -39,8 +39,8 @@ class ProductPage extends BasePage {
     }
 
     /**
-     * Click on a product by index
-     * @param {number} index - Index of product (default: 0)
+     * Klik produk berdasarkan index
+     * @param {number} index - Index produk (default: 0)
      */
     clickProduct(index = 0) {
         cy.get(SELECTORS.productName).eq(index).click();
@@ -48,8 +48,8 @@ class ProductPage extends BasePage {
     }
 
     /**
-     * Click on a product by name
-     * @param {string} productName - Exact name of product
+     * Klik produk berdasarkan nama
+     * @param {string} productName - Nama persis produk
      */
     clickProductByName(productName) {
         cy.contains(productName).click();
@@ -57,9 +57,9 @@ class ProductPage extends BasePage {
     }
 
     /**
-     * Navigate to Cold Process Soap category and select Essential Oil Soap
-     * Then select a specific product
-     * @param {string} productName - Name of the product to select
+     * Navigasi ke kategori Cold Process Soap dan pilih Essential Oil Soap
+     * Kemudian pilih produk spesifik
+     * @param {string} productName - Nama produk yang akan dipilih
      */
     navigateToColdProcessSoap(productName = 'SOAPLEASURE RECYCLE BLACK LEVEL LAVENDER SOAP') {
         cy.get(SELECTORS.coldProcess).click();
@@ -75,8 +75,8 @@ class ProductPage extends BasePage {
     // ========================================
 
     /**
-     * Get all product name elements
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan semua elemen nama produk
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getProductNames() {
         return this.getElement(SELECTORS.productName);

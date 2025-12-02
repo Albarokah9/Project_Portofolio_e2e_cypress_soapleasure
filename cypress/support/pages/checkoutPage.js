@@ -2,20 +2,20 @@ import BasePage from './basePage';
 import { URLS } from '../constants/urls';
 
 /**
- * Selectors for Checkout Page
+ * Selectors untuk Halaman Checkout
  */
 const SELECTORS = {
-    // Checkout button
+    // Tombol checkout
     checkoutButton: '.panel-body > :nth-child(2) > .btn',
 };
 
 /**
- * CheckoutPage - Handles checkout process
- * Extends BasePage for common functionality
+ * CheckoutPage - Menangani proses checkout
+ * Extends BasePage untuk fungsionalitas umum
  */
 class CheckoutPage extends BasePage {
     /**
-     * Click checkout button
+     * Klik tombol checkout
      */
     proceedToCheckout() {
         this.clickElement(SELECTORS.checkoutButton);
@@ -23,7 +23,7 @@ class CheckoutPage extends BasePage {
     }
 
     /**
-     * Verify user is on checkout page
+     * Verifikasi user berada di halaman checkout
      */
     verifyCheckoutPage() {
         this.verifyUrl(URLS.CHECKOUT);
@@ -35,8 +35,8 @@ class CheckoutPage extends BasePage {
     // ========================================
 
     /**
-     * Get checkout button element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen tombol checkout
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getCheckoutButton() {
         return this.getElement(SELECTORS.checkoutButton);
