@@ -1,27 +1,27 @@
 // ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
+// File commands.js ini menunjukkan cara membuat
+// berbagai custom commands dan menimpa
+// commands yang sudah ada.
 //
-// For more comprehensive examples of custom
-// commands please read more here:
+// Untuk contoh yang lebih lengkap tentang custom
+// commands silakan baca di:
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
 //
-// -- This is a parent command --
+// -- Ini adalah parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
 //
-// -- This is a child command --
+// -- Ini adalah child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
 //
 //
-// -- This is a dual command --
+// -- Ini adalah dual command --
 // Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
 //
 //
-// -- This will overwrite an existing command --
+// -- Ini akan menimpa existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 // cypress/support/commands.js
 
