@@ -3,34 +3,34 @@ import { ERROR_MESSAGES } from '../constants/messages';
 import { URLS } from '../constants/urls';
 
 /**
- * Selectors for Login Page
- * Note: Ideally use data-cy attributes in the application
- * Current selectors are based on existing HTML structure
+ * Selectors untuk Halaman Login
+ * Catatan: Idealnya menggunakan atribut data-cy di aplikasi
+ * Selectors saat ini berdasarkan struktur HTML yang ada
  */
 const SELECTORS = {
-    // Navigation
+    // Navigasi
     loginLink: '.d-inline-flex > [href="/account/login"] > u',
 
-    // Form inputs
+    // Input form
     emailInput: '#input-email',
     passwordInput: '#input-password',
 
-    // Buttons
+    // Tombol
     loginButton: '.btn',
 
-    // Feedback elements
+    // Elemen feedback
     userDropdown: '.dropdown',
     alertMessage: '.alert',
     invalidFeedback: '.invalid-feedback',
 };
 
 /**
- * LoginPage - Handles all login-related actions
- * Extends BasePage for common functionality
+ * LoginPage - Menangani semua aksi terkait login
+ * Extends BasePage untuk fungsionalitas umum
  */
 class LoginPage extends BasePage {
     /**
-     * Navigate to login page from home
+     * Navigasi ke halaman login dari home
      */
     visitLoginPage() {
         this.visit(URLS.HOME);
@@ -40,8 +40,8 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Type email into email input field
-     * @param {string} email - Email address
+     * Ketik email ke dalam input field email
+     * @param {string} email - Alamat email
      */
     typeEmail(email) {
         this.typeText(SELECTORS.emailInput, email);
@@ -49,7 +49,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Type password into password input field
+     * Ketik password ke dalam input field password
      * @param {string} password - Password
      */
     typePassword(password) {
@@ -58,8 +58,8 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Press Enter key on password field
-     * @param {string} password - Password to type before pressing Enter
+     * Tekan tombol Enter pada field password
+     * @param {string} password - Password yang akan diketik sebelum menekan Enter
      */
     pressEnterOnPassword(password) {
         if (password) {
@@ -71,7 +71,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Click login button
+     * Klik tombol login
      */
     clickLoginButton() {
         this.clickElement(SELECTORS.loginButton);
@@ -79,8 +79,8 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Complete login flow
-     * @param {string} email - Email address
+     * Proses login lengkap
+     * @param {string} email - Alamat email
      * @param {string} password - Password
      */
     login(email, password) {
@@ -91,8 +91,8 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Login using Enter key
-     * @param {string} email - Email address
+     * Login menggunakan tombol Enter
+     * @param {string} email - Alamat email
      * @param {string} password - Password
      */
     loginWithEnter(email, password) {
@@ -102,47 +102,47 @@ class LoginPage extends BasePage {
     }
 
     // ========================================
-    // GETTERS - Return elements for flexible assertions
+    // GETTERS - Mengembalikan elemen untuk assertions yang fleksibel
     // ========================================
 
     /**
-     * Get user dropdown element (visible when logged in)
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen dropdown user (terlihat saat sudah login)
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getUserDropdown() {
         return this.getElement(SELECTORS.userDropdown, { timeout: 10000 });
     }
 
     /**
-     * Get alert message element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen alert message
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getAlertMessage() {
         return this.getElement(SELECTORS.alertMessage);
     }
 
     /**
-     * Get invalid feedback element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen invalid feedback
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getInvalidFeedback() {
         return this.getElement(SELECTORS.invalidFeedback);
     }
 
     /**
-     * Get password input element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen input password
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getPasswordInput() {
         return this.getElement(SELECTORS.passwordInput);
     }
 
     // ========================================
-    // VERIFICATION METHODS - Common assertions for reusability
+    // METODE VERIFIKASI - Assertions umum untuk reusability
     // ========================================
 
     /**
-     * Verify user is successfully logged in
+     * Verifikasi user berhasil login
      */
     verifyLoginSuccess() {
         this.getUserDropdown().should('be.visible');
@@ -150,7 +150,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Verify invalid credentials error message
+     * Verifikasi pesan error kredensial tidak valid
      */
     verifyInvalidCredentials() {
         this.getAlertMessage()
@@ -160,7 +160,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Verify invalid email format error
+     * Verifikasi error format email tidak valid
      */
     verifyInvalidEmailFormat() {
         this.getInvalidFeedback()
@@ -170,7 +170,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Verify required email error
+     * Verifikasi error email required
      */
     verifyRequiredEmail() {
         this.getInvalidFeedback()
@@ -180,7 +180,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Verify required password error
+     * Verifikasi error password required
      */
     verifyRequiredPassword() {
         this.getInvalidFeedback()
@@ -190,7 +190,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Verify both fields are required
+     * Verifikasi kedua field required
      */
     verifyBothFieldsRequired() {
         this.getInvalidFeedback().eq(0).should('contain', ERROR_MESSAGES.LOGIN.REQUIRED_EMAIL);
@@ -199,7 +199,7 @@ class LoginPage extends BasePage {
     }
 
     /**
-     * Verify password field is masked
+     * Verifikasi field password tertutup (masked)
      */
     verifyPasswordMasked() {
         this.getPasswordInput().should('have.attr', 'type', 'password');

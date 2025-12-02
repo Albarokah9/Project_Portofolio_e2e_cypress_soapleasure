@@ -2,24 +2,24 @@ import BasePage from './basePage';
 import { URLS } from '../constants/urls';
 
 /**
- * Selectors for Logout Page
+ * Selectors untuk Halaman Logout
  */
 const SELECTORS = {
-    // Navigation
+    // Navigasi
     userDropdown: '.dropdown',
     logoutLink: '[href="/account/logout"]',
 
-    // Confirmation
+    // Konfirmasi
     loginLink: '.d-inline-flex > [href="/account/login"] > u',
 };
 
 /**
- * LogoutPage - Handles logout functionality
- * Extends BasePage for common functionality
+ * LogoutPage - Menangani fungsionalitas logout
+ * Extends BasePage untuk fungsionalitas umum
  */
 class LogoutPage extends BasePage {
     /**
-     * Click user dropdown to reveal logout option
+     * Klik dropdown user untuk menampilkan opsi logout
      */
     clickUserDropdown() {
         this.clickElement(SELECTORS.userDropdown);
@@ -27,7 +27,7 @@ class LogoutPage extends BasePage {
     }
 
     /**
-     * Click logout link
+     * Klik link logout
      */
     clickLogoutLink() {
         this.clickElement(SELECTORS.logoutLink);
@@ -35,7 +35,7 @@ class LogoutPage extends BasePage {
     }
 
     /**
-     * Complete logout flow
+     * Proses logout lengkap
      */
     logout() {
         this.clickUserDropdown();
@@ -44,23 +44,23 @@ class LogoutPage extends BasePage {
     }
 
     // ========================================
-    // GETTERS - Return elements for flexible assertions
+    // GETTERS - Mengembalikan elemen untuk assertions yang fleksibel
     // ========================================
 
     /**
-     * Get login link element (visible after logout)
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen link login (terlihat setelah logout)
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getLoginLink() {
         return this.getElement(SELECTORS.loginLink);
     }
 
     // ========================================
-    // VERIFICATION METHODS - Common assertions for reusability
+    // METODE VERIFIKASI - Assertions umum untuk reusability
     // ========================================
 
     /**
-     * Verify user is logged out successfully
+     * Verifikasi user berhasil logout
      */
     verifyLogoutSuccess() {
         this.getLoginLink().should('be.visible');

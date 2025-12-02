@@ -2,13 +2,13 @@ import BasePage from './basePage';
 import { SUCCESS_MESSAGES } from '../constants/messages';
 
 /**
- * Selectors for Cart Page
+ * Selectors untuk Halaman Cart
  */
 const SELECTORS = {
-    // Cart elements
+    // Elemen Cart
     cartButton: '.txt-chart',
 
-    // Product actions
+    // Aksi Produk
     addToCartButton: '.mt-2 > :nth-child(1)',
     buyNowButton: '.primary',
     addQuantity: '.icon_plus',
@@ -18,12 +18,12 @@ const SELECTORS = {
 };
 
 /**
- * CartPage - Handles shopping cart functionality
- * Extends BasePage for common functionality
+ * CartPage - Menangani fungsionalitas keranjang belanja
+ * Extends BasePage untuk fungsionalitas umum
  */
 class CartPage extends BasePage {
     /**
-     * Click add to cart button
+     * Klik tombol add to cart
      */
     addToCart() {
         this.clickElement(SELECTORS.addToCartButton);
@@ -31,7 +31,7 @@ class CartPage extends BasePage {
     }
 
     /**
-     * Click buy now button
+     * Klik tombol buy now
      */
     buyNow() {
         this.clickElement(SELECTORS.buyNowButton);
@@ -39,7 +39,7 @@ class CartPage extends BasePage {
     }
 
     /**
-     * Increase product quantity
+     * Tambah kuantitas produk
      */
     addQuantity() {
         this.clickElement(SELECTORS.addQuantity);
@@ -47,7 +47,7 @@ class CartPage extends BasePage {
     }
 
     /**
-     * View cart
+     * Lihat keranjang
      */
     viewCart() {
         this.clickElement(SELECTORS.cartButton);
@@ -59,19 +59,19 @@ class CartPage extends BasePage {
     // ========================================
 
     /**
-     * Get toast message element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen toast message
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getToastMessage() {
         return this.getElement(SELECTORS.toastMessage);
     }
 
     // ========================================
-    // VERIFICATION METHODS
+    // METODE VERIFIKASI
     // ========================================
 
     /**
-     * Verify product was added to cart successfully
+     * Verifikasi produk berhasil ditambahkan ke keranjang
      */
     verifyProductAddedToCart() {
         this.getToastMessage()

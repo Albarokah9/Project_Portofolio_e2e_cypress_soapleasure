@@ -3,20 +3,20 @@ import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../constants/messages';
 import { URLS } from '../constants/urls';
 
 /**
- * Selectors for Forgot Password Page
+ * Selectors untuk Halaman Lupa Password
  */
 const SELECTORS = {
-    // Navigation
+    // Navigasi
     loginLink: '.d-inline-flex > [href="/account/login"] > u',
     forgotPasswordLink: '.d-flex > a > u',
 
-    // Form inputs
+    // Input form
     emailInput: '.form-control',
 
-    // Buttons
+    // Tombol
     submitButton: '.btn',
 
-    // Feedback elements
+    // Elemen feedback
     instructionText: '.col-md-6 > .text-muted',
     successMessage: '.mb-3',
     toastMessage: '.react-toast-notifications__toast__content',
@@ -24,12 +24,12 @@ const SELECTORS = {
 };
 
 /**
- * ForgotPasswordPage - Handles forgot password functionality
- * Extends BasePage for common functionality
+ * ForgotPasswordPage - Menangani fungsionalitas lupa password
+ * Extends BasePage untuk fungsionalitas umum
  */
 class ForgotPasswordPage extends BasePage {
     /**
-     * Navigate to forgot password page
+     * Navigasi ke halaman lupa password
      */
     visitForgotPasswordPage() {
         this.visit(URLS.HOME);
@@ -40,7 +40,7 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Verify instruction text is displayed
+     * Verifikasi teks instruksi ditampilkan
      */
     verifyInstructionText() {
         this.getElement(SELECTORS.instructionText)
@@ -50,8 +50,8 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Type email into email input field
-     * @param {string} email - Email address
+     * Ketik email ke dalam input field email
+     * @param {string} email - Alamat email
      */
     typeEmail(email) {
         this.typeText(SELECTORS.emailInput, email);
@@ -59,7 +59,7 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Click submit button
+     * Klik tombol submit
      */
     clickSubmitButton() {
         this.clickElement(SELECTORS.submitButton);
@@ -67,8 +67,8 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Complete forgot password flow
-     * @param {string} email - Email address
+     * Proses lupa password lengkap
+     * @param {string} email - Alamat email
      */
     submitForgotPassword(email) {
         this.typeEmail(email);
@@ -77,39 +77,39 @@ class ForgotPasswordPage extends BasePage {
     }
 
     // ========================================
-    // GETTERS - Return elements for flexible assertions
+    // GETTERS - Mengembalikan elemen untuk assertions yang fleksibel
     // ========================================
 
     /**
-     * Get success message element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen pesan sukses
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getSuccessMessage() {
         return this.getElement(SELECTORS.successMessage);
     }
 
     /**
-     * Get toast message element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen toast message
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getToastMessage() {
         return this.getElement(SELECTORS.toastMessage);
     }
 
     /**
-     * Get invalid feedback element
-     * @returns {Cypress.Chainable} Cypress element
+     * Dapatkan elemen invalid feedback
+     * @returns {Cypress.Chainable} Elemen Cypress
      */
     getInvalidFeedback() {
         return this.getElement(SELECTORS.invalidFeedback);
     }
 
     // ========================================
-    // VERIFICATION METHODS - Common assertions for reusability
+    // METODE VERIFIKASI - Assertions umum untuk reusability
     // ========================================
 
     /**
-     * Verify success message is displayed
+     * Verifikasi pesan sukses ditampilkan
      */
     verifySuccessMessage() {
         this.getSuccessMessage()
@@ -119,8 +119,8 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Verify email not found message
-     * @param {string} email - Email that was not found
+     * Verifikasi pesan email tidak ditemukan
+     * @param {string} email - Email yang tidak ditemukan
      */
     verifyEmailNotFound(email) {
         this.getToastMessage()
@@ -130,7 +130,7 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Verify invalid email format error
+     * Verifikasi error format email tidak valid
      */
     verifyInvalidEmailFormat() {
         this.getInvalidFeedback()
@@ -140,7 +140,7 @@ class ForgotPasswordPage extends BasePage {
     }
 
     /**
-     * Verify required email error
+     * Verifikasi error email required
      */
     verifyRequiredEmail() {
         this.getInvalidFeedback()
