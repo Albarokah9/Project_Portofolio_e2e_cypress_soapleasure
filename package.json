@@ -73,7 +73,7 @@
         "@shelex/cypress-allure-plugin": "2.41.2",
         "@testing-library/cypress": "^10.0.3",
         "allure-commandline": "^2.34.1",
-        "cypress": "15.7.1",
+        "cypress": "15.8.1",
         "esbuild": "^0.25.4",
         "mkdirp": "^3.0.1",
         "prettier": "^3.5.3",
