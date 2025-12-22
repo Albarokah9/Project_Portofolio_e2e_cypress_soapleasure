@@ -1,19 +1,10 @@
 /// <reference types="cypress" />
+import LoginPage from '../../support/pages/loginPage';
 import ProductPage from '../../support/pages/productPage';
 import CartPage from '../../support/pages/cartPage';
 import CheckoutPage from '../../support/pages/checkoutPage';
-import { setupLoginSession } from '../../support/helpers/sessionHelper';
 
 describe('Checkout Test Suite', () => {
-    let testData;
-
-    before(() => {
-        // Load test data once before all tests
-        cy.fixture('loginData.json').then((data) => {
-            testData = data;
-        });
-    });
-
     afterEach(() => {
         cy.clearCookies();
     });
@@ -41,12 +32,16 @@ describe('Checkout Test Suite', () => {
 
     describe('Authenticated User Checkout', () => {
         beforeEach(() => {
-            // Setup login session before each test
-            const { email, password } = testData.validUser;
-            setupLoginSession(email, password);
+            // Load fixture and login
+            cy.fixture('loginData.json').then((data) => {
+                const { email, password } = data.validUser;
 
-            // Navigate to home page after login
-            ProductPage.visitHomePage();
+                // Login first
+                LoginPage.visitLoginPage().login(email, password).verifyLoginSuccess();
+
+                // Navigate to home page after login
+                ProductPage.visitHomePage();
+            });
         });
 
         it('TC_CO_002 - Verifikasi pengguna yang sudah login dapat menemukan produk melalui navigasi kategori, menambahkannya ke keranjang, dan berhasil menyelesaikan proses checkout', () => {
