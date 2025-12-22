@@ -1,17 +1,23 @@
 /// <reference types="cypress" />
+/**
+ * Logout Test Suite - Simplified Version
+ * 
+ * Test suite untuk logout functionality
+ */
+
 import LoginPage from '../../support/pages/loginPage';
 import LogoutPage from '../../support/pages/logoutPage';
 
 describe('Logout Test Suite', () => {
-    let testData;
-
     beforeEach(() => {
+        // Load test data and login
         cy.fixture('loginData.json').then((data) => {
-            testData = data;
-        });
+            const { email, password } = data.validUser;
 
-        // Navigate to home and login first
-        LoginPage.visitLoginPage();
+            // Navigate to login page and login
+            LoginPage.visitLoginPage();
+            LoginPage.login(email, password).verifyLoginSuccess();
+        });
     });
 
     afterEach(() => {
@@ -19,12 +25,7 @@ describe('Logout Test Suite', () => {
     });
 
     it('TC_LOGOUT_01 - Memverifikasi fungsionalitas logout pengguna', () => {
-        const { email, password } = testData.validUser;
-
-        // Login first
-        LoginPage.login(email, password).verifyLoginSuccess();
-
-        // Then logout
+        // Perform logout
         LogoutPage.logout().verifyLogoutSuccess();
 
         cy.screenshot('TC_LOGOUT_01-success', { capture: 'fullPage' });
