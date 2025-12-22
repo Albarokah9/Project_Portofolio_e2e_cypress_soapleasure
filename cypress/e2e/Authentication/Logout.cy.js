@@ -1,17 +1,33 @@
 /// <reference types="cypress" />
-import LoginPage from '../../support/pages/loginPage';
+/**
+ * Logout Test Suite - Refactored Version
+ * 
+ * Test suite ini menggunakan Cypress Session untuk:
+ * 1. Faster test execution dengan session caching
+ * 2. Better test isolation
+ * 3. Improved maintainability
+ */
+
 import LogoutPage from '../../support/pages/logoutPage';
+import { setupLoginSession } from '../../support/helpers/sessionHelper';
 
 describe('Logout Test Suite', () => {
     let testData;
 
-    beforeEach(() => {
+    before(() => {
+        // Load test data once before all tests
         cy.fixture('loginData.json').then((data) => {
             testData = data;
         });
+    });
 
-        // Navigate to home and login first
-        LoginPage.visitLoginPage();
+    beforeEach(() => {
+        // Setup login session before each test
+        const { email, password } = testData.validUser;
+        setupLoginSession(email, password);
+
+        // Navigate to home page after login
+        cy.visit('/');
     });
 
     afterEach(() => {
@@ -19,14 +35,10 @@ describe('Logout Test Suite', () => {
     });
 
     it('TC_LOGOUT_01 - Memverifikasi fungsionalitas logout pengguna', () => {
-        const { email, password } = testData.validUser;
-
-        // Login first
-        LoginPage.login(email, password).verifyLoginSuccess();
-
-        // Then logout
+        // Perform logout
         LogoutPage.logout().verifyLogoutSuccess();
 
         cy.screenshot('TC_LOGOUT_01-success', { capture: 'fullPage' });
     });
 });
+

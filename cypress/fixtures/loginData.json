@@ -34,10 +34,5 @@
     "unverifiedAccount": {
         "email": "test@gmail.com",
         "password": "Cobatest"
-    },
-    "errorMessages": {
-        "invalidCredentials": "Invalid email address or password",
-        "requiredEmail": "Email address is required",
-        "requiredPassword": "Please enter your password"
     }
 }

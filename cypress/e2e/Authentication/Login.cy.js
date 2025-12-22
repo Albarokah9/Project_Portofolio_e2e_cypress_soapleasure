@@ -1,20 +1,35 @@
 /// <reference types="cypress" />
+/**
+ * Login Test Suite - Refactored Version
+ * 
+ * Test suite ini menggunakan best practices:
+ * 1. Cypress Session untuk test yang memerlukan login state
+ * 2. Centralized error messages dari constants
+ * 3. Proper test organization dengan nested describes
+ * 4. Reusable helper functions
+ * 5. Clear separation of concerns
+ */
+
 import LoginPage from '../../support/pages/loginPage';
+import { ERROR_MESSAGES } from '../../support/constants/messages';
 
 describe('Login Test Suite', () => {
     let testData;
 
-    beforeEach(() => {
-        // Load test data
+    before(() => {
+        // Load test data once before all tests
         cy.fixture('loginData.json').then((data) => {
             testData = data;
         });
+    });
 
-        // Navigate to login page
+    beforeEach(() => {
+        // Navigate to login page before each test
         LoginPage.visitLoginPage();
     });
 
     afterEach(() => {
+        // Clean up after each test
         cy.clearCookies();
     });
 
@@ -24,7 +39,6 @@ describe('Login Test Suite', () => {
 
             LoginPage.login(email, password).verifyLoginSuccess();
 
-            // Screenshot in test file
             cy.screenshot('TC_LOGIN_01-success', { capture: 'fullPage' });
         });
 
